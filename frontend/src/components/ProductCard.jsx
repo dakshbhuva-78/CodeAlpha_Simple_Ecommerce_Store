@@ -1,22 +1,26 @@
 function ProductCard({ name, price, image }) {
   return (
-    <div className="bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
       <img
         src={image}
         alt={name}
-        className="w-full h-56 object-cover"
+        className="w-full h-64 object-cover"
       />
 
-      <div className="p-4">
-        <h2 className="text-xl font-semibold">
+      <div className="p-6">
+        <h2 className="text-2xl font-semibold">
           {name}
         </h2>
 
-        <p className="text-green-600 font-bold mt-2">
+        <p className="text-gray-500 mt-2">
+          Premium Product
+        </p>
+
+        <p className="text-xl font-bold mt-4">
           ₹{price}
         </p>
 
-        <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        <button className="mt-5 bg-black text-white px-5 py-2 rounded-full">
           View Details
         </button>
       </div>
