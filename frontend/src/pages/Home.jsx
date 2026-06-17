@@ -1,6 +1,8 @@
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import ProductCard from "../components/ProductCard";
+import Footer from "../components/Footer";
+import Features from "../components/Features";
 
 function Home() {
   const products = [
