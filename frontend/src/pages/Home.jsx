@@ -53,6 +53,8 @@ function Home() {
           ))}
         </div>
       </section>
+    <Features />
+      <Footer />
     </>
   );
 }
