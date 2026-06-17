@@ -1,6 +1,6 @@
 function ProductCard({ name, price, image }) {
   return (
-    <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-xl transition duration-300">
+    <div className="bg-white rounded-3xl overflow-hidden shadow-md hover:shadow-2xl hover:-translate-y-3 transition-all duration-500">
       <img
         src={image}
         alt={name}
