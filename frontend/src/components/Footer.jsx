@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <footer className="bg-black text-white mt-20">
@@ -11,10 +13,18 @@ function Footer() {
         </p>
 
         <div className="flex gap-6">
-          <a href="#">Home</a>
-          <a href="#">Products</a>
-          <a href="#">Login</a>
-          <a href="#">Cart</a>
+          <Link to="/">
+            Home
+          </Link>
+          <Link to="/products">
+            Products
+          </Link>
+          <Link to="/login">
+            Login
+          </Link>
+          <Link to="/cart">
+            Cart
+          </Link>
         </div>
 
         <hr className="my-8 border-gray-700" />

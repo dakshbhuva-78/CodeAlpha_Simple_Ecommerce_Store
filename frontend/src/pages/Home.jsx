@@ -1,40 +1,12 @@
-import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import ProductCard from "../components/ProductCard";
-import Footer from "../components/Footer";
 import Features from "../components/Features";
+import products from "../data/products";
 
 function Home() {
-  const products = [
-    {
-      id: 1,
-      name: "Laptop",
-      price: 65000,
-      image: "src/assets/products/laptop.webp",
-    },
-    {
-      id: 2,
-      name: "Smartphone",
-      price: 25000,
-      image: "src/assets/products/smartphone.webp",
-    },
-    {
-      id: 3,
-      name: "Headphones",
-      price: 3000,
-      image: "src/assets/products/headphone.webp",
-    },
-    {
-      id: 4,
-      name: "Smart Watch",
-      price: 5000,
-      image: "src/assets/products/smartwatch.webp",
-    },
-  ];
-
   return (
     <>
-      <Navbar />
+      
       <Hero />
 
       <section className="max-w-7xl mx-auto px-6 py-12">
@@ -45,16 +17,19 @@ function Home() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {products.map((product) => (
             <ProductCard
-              key={product.id}
+              id={product.id}
               name={product.name}
               price={product.price}
+              oldPrice={product.oldPrice}
+              category={product.category}
               image={product.image}
+              rating={product.rating}
+              discount={product.discount}
             />
           ))}
         </div>
       </section>
     <Features />
-      <Footer />
     </>
   );
 }
