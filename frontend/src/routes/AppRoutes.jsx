@@ -5,8 +5,9 @@ import Products from "../pages/Products";
 import ProductDetails from "../pages/ProductDetails";
 import Login from "../pages/Login";
 import Cart from "../pages/Cart";
+import Register from "../pages/Register";
 
-function AppRoutes({cartItems, setCartItems}) {
+function AppRoutes({ cartItems, setCartItems }) {
   return (
     <Routes>
 
@@ -15,16 +16,17 @@ function AppRoutes({cartItems, setCartItems}) {
       <Route path="/products" element={<Products />} />
 
       <Route path="/productdetails/:id" element={<ProductDetails
-            cartItems={cartItems}
-            setCartItems={setCartItems}
-        />} />
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />} />
 
       <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<Register />} />
 
       <Route path="/cart" element={<Cart
-            cartItems={cartItems}
-            setCartItems={setCartItems}
-        />} />
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />} />
 
     </Routes>
   );

@@ -6,10 +6,10 @@ function Navbar() {
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
 
         <Link
-            to="/"
-            className="text-2xl font-bold text-black"
-          >
-            AppleStore
+          to="/"
+          className="text-2xl font-bold text-black"
+        >
+          AppleStore
         </Link>
 
         <div className="flex gap-8 text-gray-700 font-medium">

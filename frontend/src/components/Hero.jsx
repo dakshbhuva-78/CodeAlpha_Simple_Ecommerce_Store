@@ -17,7 +17,7 @@ function Hero() {
         data-aos="fade-up"
         data-aos-duration="1200">
         <p className="uppercase tracking-[8px] text-gray-300 mb-4">
-             New Collection 2026
+          New Collection 2026
         </p>
         <h1 className="text-7xl font-bold text-white mb-6 animate-pulse">
           Think Different.
@@ -40,7 +40,7 @@ function Hero() {
           <button className="border border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition" data-aos="zoom-out" data-aos-duration="1200">
             Learn More
           </button>
-          
+
         </div>
         <div className="flex gap-10 mt-12 text-white">
           <div>

@@ -6,7 +6,7 @@ import products from "../data/products";
 function Home() {
   return (
     <>
-      
+
       <Hero />
 
       <section className="max-w-7xl mx-auto px-6 py-12">
@@ -29,7 +29,7 @@ function Home() {
           ))}
         </div>
       </section>
-    <Features />
+      <Features />
     </>
   );
 }
