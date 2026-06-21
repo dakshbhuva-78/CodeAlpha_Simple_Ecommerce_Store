@@ -1,15 +1,33 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AppRoutes from "./routes/AppRoutes";
 
+
 function App() {
 
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState(() => {
+
+    const savedCart = localStorage.getItem("cart");
+
+    return savedCart
+      ? JSON.parse(savedCart)
+      : [];
+
+  });
+
+  useEffect(() => {
+
+    localStorage.setItem(
+      "cart",
+      JSON.stringify(cartItems)
+    );
+
+  }, [cartItems]);
 
   return (
     <>
-      <Navbar />
+      <Navbar cartItems={cartItems} />
 
       <AppRoutes
         cartItems={cartItems}

@@ -207,7 +207,9 @@ function Cart({
 
                         </div>
 
-                        <button className="w-full mt-8 bg-black text-white py-4 rounded-full hover:bg-gray-800 transition">
+                        <button
+                            onClick={() => navigate("/checkout")}
+                            className="w-full mt-8 bg-black text-white py-4 rounded-full hover:bg-gray-800 transition">
                             Proceed To Checkout
                         </button>
 

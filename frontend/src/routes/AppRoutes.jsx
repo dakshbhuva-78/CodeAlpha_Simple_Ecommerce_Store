@@ -6,6 +6,8 @@ import ProductDetails from "../pages/ProductDetails";
 import Login from "../pages/Login";
 import Cart from "../pages/Cart";
 import Register from "../pages/Register";
+import OrderSuccess from "../pages/OrderSuccess";
+import Checkout from "../pages/Checkout";
 
 function AppRoutes({ cartItems, setCartItems }) {
   return (
@@ -27,6 +29,9 @@ function AppRoutes({ cartItems, setCartItems }) {
         cartItems={cartItems}
         setCartItems={setCartItems}
       />} />
+
+      <Route path="/checkout" element={<Checkout cartItems={cartItems} setCartItems={setCartItems} />} />
+      <Route path="/ordersuccess" element={<OrderSuccess />} />
 
     </Routes>
   );
