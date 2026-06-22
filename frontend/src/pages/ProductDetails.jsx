@@ -1,25 +1,70 @@
 import { useParams } from "react-router-dom";
-import products from "../data/products";
-import ProductCard from "../components/ProductCard";
 import { useNavigate } from "react-router-dom";
+import ProductCard from "../components/ProductCard";
+import { getProductById, getProducts } from "../services/productService";
+import { useEffect, useState } from "react";
+
 
 function ProductDetails({ cartItems, setCartItems }) {
     const { id } = useParams();
 
-    const product = products.find((item) => item.id === Number(id));
+    const [product, setProduct] = useState(null);
+    const [recommendedProducts, setRecommendedProducts] = useState([]);
 
-    if (!product) {
-        return <h1 className="text-center text-4xl py-20">Product Not Found </h1>;
-    }
-    const recommendedProducts = products.filter((item) => item.id !== product.id);
+    useEffect(() => {
+
+        const fetchProduct = async () => {
+
+            try {
+
+                const productData =
+                    await getProductById(id);
+
+                setProduct(productData);
+
+                const allProducts =
+                    await getProducts();
+
+                const filteredProducts =
+                    allProducts.filter(
+                        item => item._id !== productData._id
+                    );
+
+                setRecommendedProducts(
+                    filteredProducts.slice(0, 3)
+                );
+
+            } catch (error) {
+
+                console.error(error);
+
+            }
+
+        };
+
+        fetchProduct();
+
+    }, [id]);
 
     const navigate = useNavigate();
+
+    if (!product) {
+
+        return (
+            <h1 className="text-center text-4xl py-20">
+                Loading...
+            </h1>
+        );
+
+    }
+
+    
     const addToCart = () => {
-        const existingItem = cartItems.find((item) => item.id === product.id);
+        const existingItem = cartItems.find((item) => item._id === product._id);
 
         if (existingItem) {
             const updatedCart = cartItems.map((item) =>
-                item.id === product.id
+                item._id === product._id
                     ? {
                         ...item,
                         quantity: item.quantity + 1,
@@ -48,7 +93,7 @@ function ProductDetails({ cartItems, setCartItems }) {
                 {/* Product Image */}
 
                 <div className="bg-gray-100 rounded-3xl p-10 shadow-lg">
-                    <img src={product.image} alt={product.name} className="w-full" />
+                    <img src={`http://localhost:5000${product.image}`} alt={product.name} className="w-full" />
                 </div>
 
                 {/* Product Info */}
@@ -153,8 +198,8 @@ function ProductDetails({ cartItems, setCartItems }) {
                 <div className="grid md:grid-cols-3 gap-8">
                     {recommendedProducts.map((item) => (
                         <ProductCard
-                            key={item.id}
-                            id={item.id}
+                            key={item._id}
+                            id={item._id}
                             name={item.name}
                             category={item.category}
                             price={item.price}

@@ -1,6 +1,46 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { registerUser } from "../services/authService";
+
 
 function Register() {
+
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+
+    const navigate = useNavigate();
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match");
+            return;
+        }
+
+        try {
+            await registerUser({
+                name,
+                email,
+                password,
+            });
+
+            alert("Registration Successful");
+
+            navigate("/login");
+
+        } catch (error) {
+
+            alert(
+                error.response?.data?.message ||
+                "Registration Failed"
+            );
+
+        }
+    };
+
     return (
         <section className="min-h-screen bg-gray-100 flex items-center justify-center px-6 py-10">
 
@@ -56,41 +96,55 @@ function Register() {
                         Create your account to continue shopping.
                     </p>
 
-                    <form className="mt-8 space-y-5">
+                    <form onSubmit={handleSubmit} className="mt-8 space-y-5">
 
                         <input
                             type="text"
                             placeholder="Full Name"
+                            value={name}
+                            onChange={(e) =>
+                                setName(e.target.value)
+                            }
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
                         />
 
                         <input
                             type="email"
                             placeholder="Email Address"
+                            value={email}
+                            onChange={(e) =>
+                                setEmail(e.target.value)
+                            }
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
                         />
 
                         <input
                             type="password"
                             placeholder="Password"
+                            value={password}
+                            onChange={(e) =>
+                                setPassword(e.target.value)
+                            }
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
                         />
 
                         <input
                             type="password"
                             placeholder="Confirm Password"
+                            value={confirmPassword}
+                            onChange={(e) =>
+                                setConfirmPassword(e.target.value)
+                            }
                             className="w-full border border-gray-300 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-black"
                         />
 
-                        <Link to="/login" className="w-full text-center">
-                            <button
-                                type="submit"
-                                className="w-full bg-black text-white py-3 rounded-xl hover:bg-gray-800 transition"
-                            >
-                                Create Account
+                        <button
+                            type="submit"
+                            className="w-full bg-black text-white py-3 rounded-xl hover:bg-gray-800 transition"
+                        >
+                            Create Account
 
-                            </button>
-                        </Link>
+                        </button>
 
                     </form>
 

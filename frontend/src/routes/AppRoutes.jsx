@@ -8,6 +8,8 @@ import Cart from "../pages/Cart";
 import Register from "../pages/Register";
 import OrderSuccess from "../pages/OrderSuccess";
 import Checkout from "../pages/Checkout";
+import MyOrders from "../pages/MyOrders";
+import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes({ cartItems, setCartItems }) {
   return (
@@ -25,13 +27,32 @@ function AppRoutes({ cartItems, setCartItems }) {
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
 
-      <Route path="/cart" element={<Cart
-        cartItems={cartItems}
-        setCartItems={setCartItems}
-      />} />
+      <Route path="/cart" element={
+        <ProtectedRoute>
+          <Cart
+            cartItems={cartItems}
+            setCartItems={setCartItems}
+          />
+        </ProtectedRoute>} />
 
-      <Route path="/checkout" element={<Checkout cartItems={cartItems} setCartItems={setCartItems} />} />
+      <Route path="/checkout" element={
+        <ProtectedRoute>
+          <Checkout
+            cartItems={cartItems}
+            setCartItems={setCartItems}
+          />
+        </ProtectedRoute>
+      } />
       <Route path="/ordersuccess" element={<OrderSuccess />} />
+
+      <Route
+        path="/my-orders"
+        element={
+          <ProtectedRoute>
+            <MyOrders />
+          </ProtectedRoute>
+        }
+      />
 
     </Routes>
   );

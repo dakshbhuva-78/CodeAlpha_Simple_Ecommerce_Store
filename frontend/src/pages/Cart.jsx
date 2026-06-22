@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 
-
 function Cart({
     cartItems,
     setCartItems

@@ -6,7 +6,7 @@ const products = [
     oldPrice: 75000,
     rating: 4.9,
     discount: "15% OFF",
-    image: "/products/laptop.webp",
+    image: "/assets/products/laptop.webp",
     stock: "In Stock",
     description:
       "Powerful Apple laptop built for developers, designers and professionals.",
@@ -24,7 +24,7 @@ const products = [
     oldPrice: 85000,
     rating: 4.8,
     discount: "20% OFF",
-    image: "/products/iphone.webp",
+    image: "/assets/products/iphone.webp",
     stock: "In Stock",
     description:
       "Latest Apple smartphone with powerful camera system.",
@@ -42,7 +42,7 @@ const products = [
     oldPrice: 16000,
     rating: 4.8,
     discount: "20% OFF",
-    image: "/products/watch.webp",
+    image: "/assets/products/watch.webp",
     stock: "In Stock",
     description:
       "Premium smartwatch for fitness and daily use.",

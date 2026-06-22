@@ -21,7 +21,7 @@ function ProductCard({
         ❤️
       </button>
 
-      <img src={image} alt={name} className="w-full p-4 h-64 object-contain" />
+      <img src={`http://localhost:5000${image}`} alt={name} className="w-full p-4 h-64 object-contain" />
 
       <div className="p-6">
         <p className="text-yellow-500">⭐ {rating}</p>

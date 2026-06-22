@@ -1,6 +1,53 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import { loginUser } from "../services/authService";
+
 
 function Login() {
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const data = await loginUser({
+        email,
+        password,
+      });
+
+      localStorage.setItem(
+        "token",
+        data.token
+      );
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify({
+          name: data.name,
+          email: data.email,
+          role: data.role
+        })
+      );
+
+      alert("Login Successful");
+
+      navigate("/");
+
+    } catch (error) {
+
+      alert(
+        error.response?.data?.message ||
+        "Login Failed"
+      );
+
+    }
+  };
+
   return (
     <section className="min-h-screen flex items-center justify-center bg-gray-100 px-6">
 
@@ -33,17 +80,25 @@ function Login() {
             Sign in to continue shopping
           </p>
 
-          <form className="mt-8 space-y-5">
+          <form onSubmit={handleSubmit} className="mt-8 space-y-5">
 
             <input
               type="email"
               placeholder="Email Address"
+              value={email}
+              onChange={(e) =>
+                setEmail(e.target.value)
+              }
               className="w-full border rounded-xl px-4 py-3"
             />
 
             <input
               type="password"
               placeholder="Password"
+              value={password}
+              onChange={(e) =>
+                setPassword(e.target.value)
+              }
               className="w-full border rounded-xl px-4 py-3"
             />
 
@@ -58,14 +113,12 @@ function Login() {
 
             </div>
 
-<Link to="/">
             <button
               type="submit"
               className="w-full bg-black text-white py-3 rounded-xl"
             >
               Login
             </button>
-            </Link>
 
             <div className="text-center mt-6">
 
