@@ -9,6 +9,8 @@ import Register from "../pages/Register";
 import OrderSuccess from "../pages/OrderSuccess";
 import Checkout from "../pages/Checkout";
 import MyOrders from "../pages/MyOrders";
+import OrderDetails from "../pages/OrderDetails";
+import Invoice from "../pages/Invoice";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes({ cartItems, setCartItems }) {
@@ -54,7 +56,27 @@ function AppRoutes({ cartItems, setCartItems }) {
         }
       />
 
+      <Route
+        path="/order-details/:id"
+        element={
+          <ProtectedRoute>
+            <OrderDetails />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/invoice/:id"
+        element={
+          <ProtectedRoute>
+            <Invoice />
+          </ProtectedRoute>
+        }
+      />
+
     </Routes>
+
+
   );
 }
 

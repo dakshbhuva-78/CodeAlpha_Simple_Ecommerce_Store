@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AppRoutes from "./routes/AppRoutes";
-
+import Invoice from "./pages/Invoice";
 
 function App() {
 

@@ -11,7 +11,7 @@ function Cart({
     const increaseQty = (id) => {
 
         const updated = cartItems.map(item =>
-            item.id === id
+            item._id === id
                 ? {
                     ...item,
                     quantity: item.quantity + 1
@@ -25,7 +25,7 @@ function Cart({
     const decreaseQty = (id) => {
 
         const updated = cartItems.map(item =>
-            item.id === id
+            item._id === id
                 ? {
                     ...item,
                     quantity:
@@ -42,7 +42,7 @@ function Cart({
     const removeItem = (id) => {
 
         setCartItems(
-            cartItems.filter(item => item.id !== id)
+            cartItems.filter(item => item._id !== id)
         );
     };
 
@@ -101,13 +101,13 @@ function Cart({
                         {cartItems.map(item => (
 
                             <div
-                                key={item.id}
+                                key={item._id}
                                 className="bg-white rounded-3xl shadow-lg p-6 flex gap-6 items-center hover:shadow-2xl transition"
                             >
 
                                 <div className="bg-gray-100 rounded-2xl p-4">
                                     <img
-                                        src={item.image}
+                                        src={`http://localhost:5000${item.image}`}
                                         alt={item.name}
                                         className="w-32 h-32 object-contain"
                                     />
@@ -130,7 +130,7 @@ function Cart({
                                     <div className="flex items-center gap-4 mt-5">
 
                                         <button
-                                            onClick={() => decreaseQty(item.id)}
+                                            onClick={() => decreaseQty(item._id)}
                                             className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-xl"
                                         >
                                             -
@@ -141,7 +141,7 @@ function Cart({
                                         </span>
 
                                         <button
-                                            onClick={() => increaseQty(item.id)}
+                                            onClick={() => increaseQty(item._id)}
                                             className="w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 text-xl"
                                         >
                                             +
@@ -158,7 +158,7 @@ function Cart({
                                     </p>
 
                                     <button
-                                        onClick={() => removeItem(item.id)}
+                                        onClick={() => removeItem(item._id)}
                                         className="text-red-500 hover:text-red-700 font-medium"
                                     >
                                         Remove

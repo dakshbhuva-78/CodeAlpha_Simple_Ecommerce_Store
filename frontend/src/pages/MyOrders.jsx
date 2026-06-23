@@ -1,58 +1,34 @@
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { getMyOrders, cancelOrder } from "../services/orderService.js";
+
+
 function MyOrders() {
 
-    const orders = [
+    const [orders, setOrders] = useState([]);
+    useEffect(() => {
 
-        {
-            id: "ORD001",
-            productName: "MacBook Pro",
-            image: "http://localhost:5000/assets/products/laptop.webp",
-            quantity: 1,
-            totalPrice: 65000,
-            paymentMethod: "COD",
-            status: "Delivered",
-            orderDate: "2026-07-10",
-            deliveredDate: "2026-07-15",
-            feedbackGiven: false,
-        },
+        const fetchOrders =
+            async () => {
 
-        {
-            id: "ORD002",
-            productName: "iPhone 15 Pro",
-            image: "http://localhost:5000/assets/products/iphone.webp",
-            quantity: 1,
-            totalPrice: 75000,
-            paymentMethod: "UPI",
-            status: "Shipped",
-            orderDate: "2026-07-15",
-            feedbackGiven: false,
-        },
+                try {
 
-        {
-            id: "ORD003",
-            productName: "Apple Watch",
-            image: "http://localhost:5000/assets/products/watch.webp",
-            quantity: 1,
-            totalPrice: 25000,
-            paymentMethod: "Card",
-            status: "Packed",
-            orderDate: "2026-07-20",
-            feedbackGiven: false,
-        },
+                    const data =
+                        await getMyOrders();
 
-        {
-            id: "ORD004",
-            productName: "AirPods Pro",
-            image: "http://localhost:5000/assets/products/headphone.webp",
-            quantity: 1,
-            totalPrice: 18000,
-            paymentMethod: "UPI",
-            status: "Out For Delivery",
-            orderDate: "2026-07-21",
-            feedbackGiven: false,
-        }
+                    setOrders(data);
 
-    ];
+                } catch (error) {
 
+                    console.log(error);
+
+                }
+
+            };
+
+        fetchOrders();
+
+    }, []);
 
     const canCancelOrder = (status) => {
         return (
@@ -99,6 +75,28 @@ function MyOrders() {
 
     };
 
+    const handleCancelOrder =
+        async (orderId) => {
+
+            try {
+
+                await cancelOrder(orderId);
+
+                alert(
+                    "Order cancelled successfully"
+                );
+
+                window.location.reload();
+
+            } catch (error) {
+
+                alert(
+                    error.response?.data?.message
+                );
+
+            }
+
+        };
 
     const orderSteps = [
         "Order Placed",
@@ -136,6 +134,8 @@ function MyOrders() {
         }
     };
 
+    const navigate = useNavigate();
+
     return (
         <section className="max-w-7xl mx-auto py-16 px-6">
 
@@ -148,7 +148,7 @@ function MyOrders() {
                 {orders.map((order) => (
 
                     <div
-                        key={order.id}
+                        key={order._id}
                         className="bg-white rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl transition"
                     >
 
@@ -161,8 +161,8 @@ function MyOrders() {
                                 <div className="bg-gray-100 p-5 rounded-2xl">
 
                                     <img
-                                        src={order.image}
-                                        alt={order.productName}
+                                        src={`http://localhost:5000${order.products[0].product.image}`}
+                                        alt={order.products[0].product.name}
                                         className="w-40 h-40 object-contain"
                                     />
 
@@ -177,23 +177,23 @@ function MyOrders() {
                                         <div>
 
                                             <h2 className="text-3xl font-bold">
-                                                {order.productName}
+                                                {order.products[0].product.name}
                                             </h2>
 
                                             <p className="text-gray-500 mt-1">
-                                                Order ID: {order.id}
+                                                Order ID: {order._id}
                                             </p>
 
                                             <p className="text-gray-500">
-                                                Ordered: {order.orderDate}
+                                                Ordered: {new Date(order.createdAt).toLocaleDateString()}
                                             </p>
 
                                         </div>
 
                                         <span
-                                            className={`px-4 py-2 rounded-xl text-sm font-semibold ${getStatusColor(order.status)}`}
+                                            className={`px-4 py-2 rounded-xl text-sm font-semibold ${getStatusColor(order.orderStatus)}`}
                                         >
-                                            {order.status}
+                                            {order.orderStatus}
                                         </span>
 
                                     </div>
@@ -207,7 +207,7 @@ function MyOrders() {
                                             </p>
 
                                             <p className="font-bold">
-                                                {order.quantity}
+                                                {order.products[0].quantity}
                                             </p>
 
                                         </div>
@@ -246,14 +246,14 @@ function MyOrders() {
                                             {orderSteps.map((step, index) => {
 
                                                 const currentIndex =
-                                                    orderSteps.indexOf(order.status);
+                                                    orderSteps.indexOf(order.orderStatus);
 
                                                 return (
 
                                                     <div
                                                         key={index}
                                                         className={`px-4 py-2 rounded-full text-sm font-medium
-                    ${index <= currentIndex
+                                                            ${index <= currentIndex
                                                                 ? "bg-green-100 text-green-600"
                                                                 : "bg-gray-100 text-gray-400"
                                                             }`}
@@ -273,20 +273,30 @@ function MyOrders() {
 
                                     <div className="flex flex-wrap gap-4 mt-8">
 
-                                        <button className="bg-black text-white px-6 py-3 rounded-full">
+                                        <button
+                                            onClick={() =>
+                                                navigate(`/order-details/${order._id}`)
+                                            }
+                                            className="bg-black text-white px-6 py-3 rounded-full"
+                                        >
                                             View Details
                                         </button>
 
                                         {
-                                            canCancelOrder(order.status) && (
-                                                <button className="border border-red-500 text-red-500 px-6 py-3 rounded-full">
+                                            canCancelOrder(order.orderStatus) && (
+                                                <button
+                                                    onClick={() =>
+                                                        handleCancelOrder(order._id)
+                                                    }
+                                                    className="border border-red-500 text-red-500 px-6 py-3 rounded-full"
+                                                >
                                                     Cancel Order
                                                 </button>
                                             )}
 
                                         {
                                             canReturnOrder(
-                                                order.status,
+                                                order.orderStatus,
                                                 order.deliveredDate
                                             ) && (
                                                 <button className="border border-blue-500 text-blue-500 px-6 py-3 rounded-full">
@@ -296,7 +306,7 @@ function MyOrders() {
 
                                         {
                                             canGiveFeedback(
-                                                order.status,
+                                                order.orderStatus,
                                                 order.feedbackGiven
                                             ) && (
                                                 <button className="bg-yellow-500 text-white px-6 py-3 rounded-full">
