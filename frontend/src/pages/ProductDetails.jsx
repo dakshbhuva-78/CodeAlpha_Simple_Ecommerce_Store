@@ -1,8 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
-import { getProductById, getProducts } from "../services/productService";
+import { getProductById, getProducts, getProductReviews } from "../services/productService";
 import { useEffect, useState } from "react";
+
 
 
 function ProductDetails({ cartItems, setCartItems }) {
@@ -10,6 +11,7 @@ function ProductDetails({ cartItems, setCartItems }) {
 
     const [product, setProduct] = useState(null);
     const [recommendedProducts, setRecommendedProducts] = useState([]);
+    const [reviews, setReviews] = useState([]);
 
     useEffect(() => {
 
@@ -21,6 +23,11 @@ function ProductDetails({ cartItems, setCartItems }) {
                     await getProductById(id);
 
                 setProduct(productData);
+
+                const reviewData =
+                    await getProductReviews(id);
+
+                setReviews(reviewData);
 
                 const allProducts =
                     await getProducts();
@@ -58,7 +65,7 @@ function ProductDetails({ cartItems, setCartItems }) {
 
     }
 
-    
+
     const addToCart = () => {
         const existingItem = cartItems.find((item) => item._id === product._id);
 
@@ -136,6 +143,7 @@ function ProductDetails({ cartItems, setCartItems }) {
                             ))}
                         </ul>
                     </div>
+
 
                     {/* Buttons */}
 
@@ -243,30 +251,50 @@ function ProductDetails({ cartItems, setCartItems }) {
 
             {/* Reviews */}
 
-            {/* <div className="mt-24">
+            <div className="mt-24">
 
-    <h2 className="text-4xl font-bold mb-8">
-      Customer Reviews
-    </h2>
+                <h2 className="text-2xl font-bold mb-4">
+                    Customer Reviews
+                </h2>
 
-    <div className="bg-gray-100 rounded-3xl p-8">
+                {
+                    reviews.length === 0 ? (
 
-      <h3 className="text-2xl font-bold">
-        ⭐⭐⭐⭐⭐
-      </h3>
+                        <p className="text-gray-500">
+                            No reviews yet
+                        </p>
 
-      <p className="mt-4 text-gray-600">
-        Excellent product quality. Fast delivery and
-        premium experience. Highly recommended.
-      </p>
+                    ) : (
 
-      <p className="mt-4 font-semibold">
-        - Verified Customer
-      </p>
+                        reviews.map((review) => (
 
-    </div>
+                            <div
+                                key={review._id}
+                                className="bg-gray-100 p-4 rounded-xl mb-3"
+                            >
 
-  </div> */}
+                                <p className="font-bold">
+                                    {review.user?.name}
+                                </p>
+
+                                <p className="text-yellow-500">
+                                    {"⭐".repeat(
+                                        review.rating
+                                    )}
+                                </p>
+
+                                <p>
+                                    {review.feedback}
+                                </p>
+
+                            </div>
+
+                        ))
+
+                    )
+                }
+
+            </div>
         </section>
     );
 }

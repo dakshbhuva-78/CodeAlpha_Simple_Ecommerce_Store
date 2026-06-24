@@ -1,4 +1,5 @@
 import Order from "../models/Order.js";
+import Product from "../models/Product.js";
 
 export const createOrder = async (req, res) => {
 
@@ -171,5 +172,134 @@ export const downloadInvoice = async (
     }
 
     res.json(order);
+
+};
+
+export const submitFeedback = async (req, res) => {
+
+    try {
+
+        const order = await Order.findById(
+            req.params.id
+        );
+
+        if (!order) {
+
+            return res.status(404).json({
+                message: "Order not found",
+            });
+
+        }
+
+        order.rating = req.body.rating;
+
+        order.feedback = req.body.feedback;
+
+        order.feedbackGiven = true;
+
+        await order.save();
+
+        // Update Product Rating
+
+        const productId =
+            order.products[0].product;
+
+        const reviews =
+            await Order.find({
+                "products.product": productId,
+                feedbackGiven: true,
+            });
+
+        const totalRating =
+            reviews.reduce(
+                (acc, item) =>
+                    acc + item.rating,
+                0
+            );
+
+        const averageRating =
+            totalRating /
+            reviews.length;
+
+        await Product.findByIdAndUpdate(
+            productId,
+            {
+                rating:
+                    averageRating.toFixed(1),
+            }
+        );
+
+        res.json({
+            message:
+                "Feedback submitted successfully",
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message: error.message,
+        });
+
+    }
+
+};
+
+export const returnOrder = async (
+    req,
+    res
+) => {
+
+    try {
+
+        const order =
+            await Order.findById(
+                req.params.id
+            );
+
+        if (!order) {
+
+            return res.status(404).json({
+                message:
+                    "Order not found",
+            });
+
+        }
+
+        if (
+            order.orderStatus !==
+            "Delivered"
+        ) {
+
+            return res.status(400).json({
+                message:
+                    "Only delivered orders can be returned",
+            });
+
+        }
+
+        order.orderStatus =
+            "Returned";
+
+        order.returnReason =
+            req.body.reason;
+
+        order.returnedAt =
+            Date.now();
+
+        await order.save();
+
+        res.json({
+            message:
+                "Return request submitted",
+        });
+
+    } catch (error) {
+
+        res.status(500).json({
+            message:
+                error.message,
+        });
+
+    }
 
 };

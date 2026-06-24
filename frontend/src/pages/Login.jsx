@@ -27,16 +27,20 @@ function Login() {
 
       localStorage.setItem(
         "user",
-        JSON.stringify({
-          name: data.name,
-          email: data.email,
-          role: data.role
-        })
+        JSON.stringify(data)
       );
 
       alert("Login Successful");
 
-      navigate("/");
+      if (data.role === "admin") {
+
+        navigate("/admin");
+
+      } else {
+
+        navigate("/");
+
+      }
 
     } catch (error) {
 

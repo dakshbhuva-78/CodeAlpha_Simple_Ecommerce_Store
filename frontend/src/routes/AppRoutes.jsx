@@ -11,6 +11,16 @@ import Checkout from "../pages/Checkout";
 import MyOrders from "../pages/MyOrders";
 import OrderDetails from "../pages/OrderDetails";
 import Invoice from "../pages/Invoice";
+import AdminDashboard from "../pages/AdminDashboard";
+import AdminProducts from "../pages/AdminProducts";
+import AddProduct from "../pages/AddProduct";
+import EditProduct from "../pages/EditProduct";
+import AdminOrders from "../pages/AdminOrders";
+import LeaveFeedback from "../pages/LeaveFeedback";
+import ReturnOrder from "../pages/ReturnOrder";
+import AdminRoute from "../components/AdminRoute";
+import AdminLayout from "../components/AdminLayout";
+import AdminFeedbacks from "../pages/AdminFeedbacks";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes({ cartItems, setCartItems }) {
@@ -73,6 +83,80 @@ function AppRoutes({ cartItems, setCartItems }) {
           </ProtectedRoute>
         }
       />
+
+      <Route
+        path="/admin"
+        element={
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
+        }
+      />
+
+      <Route
+        path="/admin/products"
+        element={
+          <AdminRoute>
+            <AdminProducts />
+          </AdminRoute>
+        }
+      />
+
+      <Route
+        path="/admin/add-product"
+        element={
+          <AdminRoute>
+            <AddProduct />
+          </AdminRoute>
+        }
+      />
+
+      <Route
+        path="/admin/edit-product/:id"
+        element={
+          <AdminRoute>
+            <EditProduct />
+          </AdminRoute>
+        }
+      />
+
+      <Route
+        path="/admin/orders"
+        element={
+          <AdminRoute>
+            <AdminOrders />
+          </AdminRoute>
+        }
+      />
+
+      <Route
+        path="/feedback/:id"
+        element={
+          <ProtectedRoute>
+            <LeaveFeedback />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/admin/feedbacks"
+        element={
+          <AdminRoute>
+            <AdminFeedbacks />
+          </AdminRoute>
+        }
+      />
+
+      <Route
+        path="/return-order/:id"
+        element={
+          <ProtectedRoute>
+            <ReturnOrder />
+          </ProtectedRoute>
+        }
+      />
+
+
 
     </Routes>
 

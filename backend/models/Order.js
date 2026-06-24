@@ -128,6 +128,10 @@ const orderSchema = new mongoose.Schema(
       type: Date,
       default: null,
     },
+    returnReason: {
+      type: String,
+      default: "",
+    },
   },
 
   {

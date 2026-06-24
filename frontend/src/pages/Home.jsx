@@ -1,9 +1,25 @@
+import { useEffect, useState } from "react";
 import Hero from "../components/Hero";
 import ProductCard from "../components/ProductCard";
 import Features from "../components/Features";
-import products from "../data/products";
+import { getProducts } from "../services/productService";
 
 function Home() {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const data = await getProducts();
+        setProducts(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
   return (
     <>
 
@@ -15,16 +31,18 @@ function Home() {
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((product) => (
+          {products.slice(0, 4).map((product) => (
             <ProductCard
-              id={product.id}
-              name={product.name}
-              price={product.price}
-              oldPrice={product.oldPrice}
-              category={product.category}
-              image={product.image}
-              rating={product.rating}
-              discount={product.discount}
+              key={product._id}
+            id={product._id}
+            name={product.name}
+            category={product.category}
+            price={product.price}
+            oldPrice={product.oldPrice}
+            image={product.image}
+            rating={product.rating}
+            discount={product.discount}
+            stock={product.stock}
             />
           ))}
         </div>

@@ -295,21 +295,32 @@ function MyOrders() {
                                             )}
 
                                         {
-                                            canReturnOrder(
-                                                order.orderStatus,
-                                                order.deliveredDate
-                                            ) && (
-                                                <button className="border border-blue-500 text-blue-500 px-6 py-3 rounded-full">
-                                                    Return Product
-                                                </button>
-                                            )}
+                                            order.orderStatus ===
+                                            "Delivered" && (
 
+                                                <button
+                                                    onClick={() =>
+                                                        navigate(
+                                                            `/return-order/${order._id}`
+                                                        )
+                                                    }
+                                                    className="bg-red-500 text-white px-6 py-3 rounded-full"
+                                                >
+                                                    Return Order
+                                                </button>
+
+                                            )}
                                         {
                                             canGiveFeedback(
                                                 order.orderStatus,
                                                 order.feedbackGiven
                                             ) && (
-                                                <button className="bg-yellow-500 text-white px-6 py-3 rounded-full">
+                                                <button
+                                                    onClick={() =>
+                                                        navigate(`/feedback/${order._id}`)
+                                                    }
+                                                    className="bg-yellow-500 text-white px-6 py-3 rounded-full"
+                                                >
                                                     Leave Feedback
                                                 </button>
                                             )}

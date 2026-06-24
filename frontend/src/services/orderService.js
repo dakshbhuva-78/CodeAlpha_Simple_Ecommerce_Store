@@ -95,3 +95,30 @@ export const getInvoiceData = async (id) => {
 
     return data;
 };
+
+export const returnOrder = async (
+    orderId,
+    reason
+) => {
+
+    const token =
+        localStorage.getItem(
+            "token"
+        );
+
+    const { data } =
+        await axios.put(
+            `http://localhost:5000/api/orders/${orderId}/return`,
+            {
+                reason,
+            },
+            {
+                headers: {
+                    Authorization:
+                        `Bearer ${token}`,
+                },
+            }
+        );
+
+    return data;
+};

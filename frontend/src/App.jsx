@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import AppRoutes from "./routes/AppRoutes";
-import Invoice from "./pages/Invoice";
 
 function App() {
 
@@ -16,6 +16,11 @@ function App() {
 
   });
 
+  const location = useLocation();
+
+  const isAdminPage =
+    location.pathname.startsWith("/admin");
+
   useEffect(() => {
 
     localStorage.setItem(
@@ -27,14 +32,14 @@ function App() {
 
   return (
     <>
-      <Navbar cartItems={cartItems} />
+      {!isAdminPage && <Navbar cartItems={cartItems} />}
 
       <AppRoutes
         cartItems={cartItems}
         setCartItems={setCartItems}
       />
 
-      <Footer />
+      {!isAdminPage && <Footer />}
     </>
   );
 }

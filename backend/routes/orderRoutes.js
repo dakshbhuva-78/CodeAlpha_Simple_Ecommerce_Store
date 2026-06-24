@@ -6,6 +6,8 @@ import {
     cancelOrder,
     getOrderById,
     downloadInvoice,
+    submitFeedback,
+    returnOrder,
 } from "../controllers/orderController.js";
 
 import {
@@ -43,6 +45,18 @@ router.get(
     "/:id/invoice",
     protect,
     downloadInvoice
+);
+
+router.put(
+    "/:id/feedback",
+    protect,
+    submitFeedback
+);
+
+router.put(
+    "/:id/return",
+    protect,
+    returnOrder
 );
 
 export default router;
