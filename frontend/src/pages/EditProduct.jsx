@@ -113,110 +113,189 @@ function EditProduct() {
 
             <section className="max-w-4xl mx-auto py-16 px-6">
 
-                <h1 className="text-5xl font-bold mb-10">
-                    Edit Product
-                </h1>
+                <div className="mb-10">
+
+                    <h1 className="text-5xl font-bold">
+                        Edit Product
+                    </h1>
+
+                    <p className="text-gray-500 mt-2">
+                        Update product information and save your changes.
+                    </p>
+
+                </div>
 
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white shadow-xl rounded-3xl p-8 space-y-5"
+                    className="bg-white rounded-3xl shadow-xl p-10 space-y-10"
                 >
 
-                    <input
-                        type="text"
-                        name="name"
-                        placeholder="Product Name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl"
-                        required
-                    />
+                    {/* Product Information */}
 
-                    <input
-                        type="text"
-                        name="category"
-                        placeholder="Category"
-                        value={formData.category}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl"
-                        required
-                    />
+                    <div>
 
-                    <input
-                        type="number"
-                        name="price"
-                        placeholder="Price"
-                        value={formData.price}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl"
-                        required
-                    />
+                        <h2 className="text-2xl font-bold mb-6">
+                            📦 Product Information
+                        </h2>
 
-                    <input
-                        type="number"
-                        name="oldPrice"
-                        placeholder="Old Price"
-                        value={formData.oldPrice}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl"
-                    />
+                        <div className="grid md:grid-cols-2 gap-6">
 
-                    <input
-                        type="text"
-                        name="image"
-                        placeholder="eg./assets/products/iphone15pro.webp"
-                        value={formData.image}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl"
-                    />
+                            <input
+                                type="text"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                placeholder="Product Name"
+                                className="border rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none"
+                                required
+                            />
 
-                    <input
-                        type="text"
-                        name="discount"
-                        placeholder="Discount"
-                        value={formData.discount}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl"
-                    />
+                            <input
+                                type="text"
+                                name="category"
+                                value={formData.category}
+                                onChange={handleChange}
+                                placeholder="Category"
+                                className="border rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none"
+                                required
+                            />
 
-                    <select
-                        name="stock"
-                        value={formData.stock}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl"
-                    >
-                        <option value="In Stock">
-                            In Stock
-                        </option>
+                        </div>
 
-                        <option value="Out Of Stock">
-                            Out Of Stock
-                        </option>
-                    </select>
+                    </div>
 
-                    <textarea
-                        name="features"
-                        placeholder="Features (comma separated)"
-                        value={formData.features}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl h-28"
-                    />
+                    {/* Pricing */}
 
+                    <div>
 
-                    <textarea
-                        name="description"
-                        placeholder="Description"
-                        value={formData.description}
-                        onChange={handleChange}
-                        className="w-full border p-3 rounded-xl h-32"
-                    />
+                        <h2 className="text-2xl font-bold mb-6">
+                            💰 Pricing
+                        </h2>
 
-                    <button
-                        type="submit"
-                        className="bg-black text-white px-8 py-3 rounded-xl"
-                    >
-                        Update Product
-                    </button>
+                        <div className="grid md:grid-cols-2 gap-6">
+
+                            <input
+                                type="number"
+                                name="price"
+                                value={formData.price}
+                                onChange={handleChange}
+                                placeholder="Price"
+                                className="border rounded-xl p-4"
+                                required
+                            />
+
+                            <input
+                                type="number"
+                                name="oldPrice"
+                                value={formData.oldPrice}
+                                onChange={handleChange}
+                                placeholder="Old Price"
+                                className="border rounded-xl p-4"
+                            />
+
+                            <input
+                                type="text"
+                                name="discount"
+                                value={formData.discount}
+                                onChange={handleChange}
+                                placeholder="Discount"
+                                className="border rounded-xl p-4"
+                            />
+
+                            <select
+                                name="stock"
+                                value={formData.stock}
+                                onChange={handleChange}
+                                className="border rounded-xl p-4"
+                            >
+                                <option value="In Stock">
+                                    In Stock
+                                </option>
+
+                                <option value="Out Of Stock">
+                                    Out Of Stock
+                                </option>
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    {/* Product Image */}
+
+                    <div>
+
+                        <h2 className="text-2xl font-bold mb-6">
+                            🖼 Product Image
+                        </h2>
+
+                        <input
+                            type="text"
+                            name="image"
+                            value={formData.image}
+                            onChange={handleChange}
+                            placeholder="/uploads/macbook.webp"
+                            className="border rounded-xl p-4 w-full"
+                        />
+
+                    </div>
+
+                    {/* Description */}
+
+                    <div>
+
+                        <h2 className="text-2xl font-bold mb-6">
+                            📝 Description
+                        </h2>
+
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Write product description..."
+                            className="border rounded-xl p-4 w-full h-36"
+                        />
+
+                    </div>
+
+                    {/* Features */}
+
+                    <div>
+
+                        <h2 className="text-2xl font-bold mb-6">
+                            ⭐ Features
+                        </h2>
+
+                        <textarea
+                            name="features"
+                            value={formData.features}
+                            onChange={handleChange}
+                            placeholder="M4 Chip, Retina Display, Face ID..."
+                            className="border rounded-xl p-4 w-full h-32"
+                        />
+
+                    </div>
+
+                    {/* Buttons */}
+
+                    <div className="flex justify-end gap-4 pt-6 border-t">
+
+                        <button
+                            type="button"
+                            onClick={() => navigate("/admin/products")}
+                            className="px-8 py-3 rounded-xl border hover:bg-gray-100 transition"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:scale-105 transition"
+                        >
+                            Update Product
+                        </button>
+
+                    </div>
 
                 </form>
 

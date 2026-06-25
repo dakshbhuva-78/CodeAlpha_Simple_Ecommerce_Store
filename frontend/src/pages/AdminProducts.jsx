@@ -3,6 +3,10 @@ import {
   getProducts,
   deleteProduct,
 } from "../services/adminProductService";
+import {
+FaEdit,
+FaTrash
+} from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../components/AdminLayout";
 
@@ -136,53 +140,77 @@ function AdminProducts() {
                   <td className="p-4">
 
                     <img
-                      src={product.image}
+                      src={`http://localhost:5000${product.image}`}
                       alt={product.name}
-                      className="w-16 h-16 object-contain"
+                      className="w-18 h-18 rounded-xl object-cover bg-gray-50 p-2"
                     />
 
                   </td>
 
-                  <td className="p-4 font-semibold">
-                    {product.name}
+                  <td>
+                    <div>
+                      <p className="font-semibold text-lg">
+                        {product.name}
+                      </p>
+
+                      <p className="text-xs text-gray-500">
+                        #{product._id.slice(-6)}
+                      </p>
+                    </div>
                   </td>
 
-                  <td className="p-4">
-                    {product.category}
+                  <td className="">
+                    <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-700 text-sm font-medium">
+                      {product.category}
+                    </span>
                   </td>
 
-                  <td className="p-4">
-                    ₹{product.price}
+                  <td className="">
+                    <div>
+                      <p className="font-bold text-lg">
+                        ₹{product.price}
+                      </p>
+
+                      <p className="text-sm text-gray-400 line-through">
+                        ₹{product.oldPrice}
+                      </p>
+                    </div>
                   </td>
 
-                  <td className="p-4">
-                    {product.stock}
+                  <td>
+                    <span
+                      className={`px-4 py-2 rounded-full text-sm font-semibold ${product.stock === "In Stock"
+                        ?
+                        "bg-green-100 text-green-700"
+                        :
+                        "bg-red-100 text-red-700"
+                        }`}
+                    >
+                      {product.stock}
+                    </span>
                   </td>
 
-                  <td className="p-4 flex gap-3">
+                  <td className="pt-8 flex gap-2">
 
-                    <button
-                      onClick={() =>
+                    <button onClick={() =>
                         navigate(
                           `/admin/edit-product/${product._id}`
                         )
                       }
-                      className="bg-blue-500 text-white px-4 py-2 rounded-lg"
+                      className="bg-blue-500 hover:bg-blue-600 text-white w-10 h-10 rounded-xl flex items-center justify-center"
                     >
-                      Edit
+                      <FaEdit />
                     </button>
 
-                    <button
-                      onClick={() =>
+                    <button onClick={() =>
                         handleDelete(product._id)
                       }
-                      className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                      className="bg-red-500 hover:bg-red-600 text-white w-10 h-10 rounded-xl flex items-center justify-center"
                     >
-                      Delete
+                      <FaTrash />
                     </button>
 
                   </td>
-
                 </tr>
 
               ))}

@@ -65,101 +65,193 @@ function AddProduct() {
 
     return (
         <AdminLayout>
-        <section className="max-w-4xl mx-auto py-16 px-6">
+            <section className="max-w-4xl mx-auto py-16 px-6">
 
-            <h1 className="text-5xl font-bold mb-10">
-                Add Product
-            </h1>
+                <div className="mb-10">
 
-            <form
-                onSubmit={handleSubmit}
-                className="bg-white shadow-xl rounded-3xl p-8 space-y-5"
-            >
+                    <h1 className="text-5xl font-bold">
+                        Add New Product
+                    </h1>
 
-                <input
-                    type="text"
-                    name="name"
-                    placeholder="Product Name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full border p-3 rounded-xl"
-                    required
-                />
+                    <p className="text-gray-500 mt-2">
+                        Fill in the product information to add it to your store.
+                    </p>
 
-                <input
-                    type="text"
-                    name="category"
-                    placeholder="Category"
-                    value={formData.category}
-                    onChange={handleChange}
-                    className="w-full border p-3 rounded-xl"
-                    required
-                />
+                </div>
 
-                <input
-                    type="number"
-                    name="price"
-                    placeholder="Price"
-                    value={formData.price}
-                    onChange={handleChange}
-                    className="w-full border p-3 rounded-xl"
-                    required
-                />
-
-                <input
-                    type="number"
-                    name="oldPrice"
-                    placeholder="Old Price"
-                    value={formData.oldPrice}
-                    onChange={handleChange}
-                    className="w-full border p-3 rounded-xl"
-                />
-
-                <input
-                    type="text"
-                    name="image"
-                    placeholder="eg. /assets/products/iphone15pro.webp"
-                    value={formData.image}
-                    onChange={handleChange}
-                    className="w-full border p-3 rounded-xl"
-                />
-
-                <input
-                    type="text"
-                    name="discount"
-                    placeholder="Discount"
-                    value={formData.discount}
-                    onChange={handleChange}
-                    className="w-full border p-3 rounded-xl"
-                />
-
-                <textarea
-                    name="features"
-                    placeholder="Features (comma separated)"
-                    value={formData.features}
-                    onChange={handleChange}
-                    className="w-full border p-3 rounded-xl h-28"
-                />
-
-
-                <textarea
-                    name="description"
-                    placeholder="Description"
-                    value={formData.description}
-                    onChange={handleChange}
-                    className="w-full border p-3 rounded-xl h-32"
-                />
-
-                <button
-                    type="submit"
-                    className="bg-black text-white px-8 py-3 rounded-xl"
+                <form
+                    onSubmit={handleSubmit}
+                    className="bg-white rounded-3xl shadow-xl p-10 space-y-10"
                 >
-                    Add Product
-                </button>
 
-            </form>
+                    {/* Product Information */}
 
-        </section>
+                    <div>
+
+                        <h2 className="text-2xl font-bold mb-6">
+                            📦 Product Information
+                        </h2>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Product Name"
+                                value={formData.name}
+                                onChange={handleChange}
+                                className="border rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none"
+                                required
+                            />
+
+                            <input
+                                type="text"
+                                name="category"
+                                placeholder="Category"
+                                value={formData.category}
+                                onChange={handleChange}
+                                className="border rounded-xl p-4 focus:ring-2 focus:ring-blue-500 outline-none"
+                                required
+                            />
+
+                        </div>
+
+                    </div>
+
+                    {/* Pricing */}
+
+                    <div>
+
+                        <h2 className="text-2xl font-bold mb-6">
+                            💰 Pricing
+                        </h2>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+
+                            <input
+                                type="number"
+                                name="price"
+                                placeholder="Price"
+                                value={formData.price}
+                                onChange={handleChange}
+                                className="border rounded-xl p-4"
+                                required
+                            />
+
+                            <input
+                                type="number"
+                                name="oldPrice"
+                                placeholder="Old Price"
+                                value={formData.oldPrice}
+                                onChange={handleChange}
+                                className="border rounded-xl p-4"
+                            />
+
+                            <input
+                                type="text"
+                                name="discount"
+                                placeholder="Discount (Ex. 20% OFF)"
+                                value={formData.discount}
+                                onChange={handleChange}
+                                className="border rounded-xl p-4"
+                            />
+
+                            <select
+                                name="stock"
+                                value={formData.stock}
+                                onChange={handleChange}
+                                className="border rounded-xl p-4"
+                            >
+
+                                <option>In Stock</option>
+
+                                <option>Out Of Stock</option>
+
+                            </select>
+
+                        </div>
+
+                    </div>
+
+                    {/* Media */}
+
+                    <div>
+
+                        <h2 className="text-2xl font-bold mb-6">
+                            🖼 Product Image
+                        </h2>
+
+                        <input
+                            type="text"
+                            name="image"
+                            placeholder="/uploads/macbook.webp"
+                            value={formData.image}
+                            onChange={handleChange}
+                            className="border rounded-xl p-4 w-full"
+                        />
+
+                    </div>
+
+                    {/* Description */}
+
+                    <div>
+
+                        <h2 className="text-2xl font-bold mb-6">
+                            📝 Description
+                        </h2>
+
+                        <textarea
+                            name="description"
+                            value={formData.description}
+                            onChange={handleChange}
+                            placeholder="Write product description..."
+                            className="border rounded-xl p-4 w-full h-36"
+                        />
+
+                    </div>
+
+                    {/* Features */}
+
+                    <div>
+
+                        <h2 className="text-2xl font-bold mb-6">
+                            ⭐ Features
+                        </h2>
+
+                        <textarea
+                            name="features"
+                            value={formData.features}
+                            onChange={handleChange}
+                            placeholder="M4 Chip, Retina Display, 18 Hours Battery..."
+                            className="border rounded-xl p-4 w-full h-32"
+                        />
+
+                    </div>
+
+                    {/* Buttons */}
+
+                    <div className="flex justify-end gap-4 pt-6 border-t">
+
+                        <button
+                            type="button"
+                            onClick={() => navigate("/admin/products")}
+                            className="px-8 py-3 rounded-xl border hover:bg-gray-100 transition"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            className="px-8 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-purple-600 text-white hover:scale-105 transition"
+                        >
+                            Add Product
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </section>
         </AdminLayout>
     );
 
