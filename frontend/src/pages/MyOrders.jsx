@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getMyOrders, cancelOrder } from "../services/orderService.js";
+import toast from "react-hot-toast";
 
 
 function MyOrders() {
@@ -82,7 +83,7 @@ function MyOrders() {
 
                 await cancelOrder(orderId);
 
-                alert(
+                toast.success(
                     "Order cancelled successfully"
                 );
 
@@ -90,7 +91,7 @@ function MyOrders() {
 
             } catch (error) {
 
-                alert(
+                toast.error(
                     error.response?.data?.message
                 );
 

@@ -9,6 +9,7 @@ FaTrash
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AdminLayout from "../components/AdminLayout";
+import toast from "react-hot-toast";
 
 function AdminProducts() {
 
@@ -55,7 +56,7 @@ function AdminProducts() {
 
       fetchProducts();
 
-      alert(
+      toast.success(
         "Product Deleted Successfully"
       );
 
@@ -63,7 +64,7 @@ function AdminProducts() {
 
       console.log(error);
 
-      alert("Delete Failed");
+      toast.error("Delete Failed");
 
     }
 

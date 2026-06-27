@@ -12,12 +12,17 @@ export const loginUser = async (userData) => {
 };
 
 export const registerUser = async (userData) => {
-  const response = await axios.post(
-    `${API_URL}/register`,
+
+  const { data } = await axios.post(
+
+    "http://localhost:5000/api/users/register",
+
     userData
+
   );
 
-  return response.data;
+  return data;
+
 };
 
 export const getUserProfile = async (token) => {
@@ -31,4 +36,34 @@ export const getUserProfile = async (token) => {
   );
 
   return response.data;
+};
+
+export const updateUserProfile = async (
+
+  userData,
+
+  token
+
+) => {
+
+  const { data } = await axios.put(
+
+    `${API_URL}/profile`,
+
+    userData,
+
+    {
+
+      headers: {
+
+        Authorization: `Bearer ${token}`
+
+      }
+
+    }
+
+  );
+
+  return data;
+
 };

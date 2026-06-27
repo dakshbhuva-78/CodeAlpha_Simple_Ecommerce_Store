@@ -21,6 +21,11 @@ import ReturnOrder from "../pages/ReturnOrder";
 import AdminRoute from "../components/AdminRoute";
 import AdminLayout from "../components/AdminLayout";
 import AdminFeedbacks from "../pages/AdminFeedbacks";
+import VerifyOtp from "../pages/VerifyOtp";
+import ForgotPassword from "../pages/ForgotPassword";
+import ResetPassword from "../pages/ResetPassword";
+import Profile from "../pages/Profile";
+import EditProfile from "../pages/EditProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
 
 function AppRoutes({ cartItems, setCartItems }) {
@@ -156,6 +161,40 @@ function AppRoutes({ cartItems, setCartItems }) {
         }
       />
 
+      <Route
+        path="/profile"
+        element={
+          <ProtectedRoute>
+            <Profile />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/edit-profile"
+        element={
+          <ProtectedRoute>
+            <EditProfile />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/verify-otp"
+        element={
+          <VerifyOtp />
+        }
+      />
+
+      <Route
+        path="/forgot-password"
+        element={<ForgotPassword />}
+      />
+
+      <Route
+        path="/reset-password"
+        element={<ResetPassword />}
+      />
 
 
     </Routes>

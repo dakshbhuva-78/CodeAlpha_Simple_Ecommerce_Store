@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdminLayout from "../components/AdminLayout";
+import toast from "react-hot-toast";
 
 function AddProduct() {
 
@@ -49,7 +50,7 @@ function AddProduct() {
                 productData
             );
 
-            alert("Product Added Successfully");
+            toast.success("Product Added Successfully");
 
             navigate("/admin/products");
 
@@ -57,7 +58,7 @@ function AddProduct() {
 
             console.log(error);
 
-            alert("Failed To Add Product");
+            toast.error("Failed To Add Product");
 
         }
 

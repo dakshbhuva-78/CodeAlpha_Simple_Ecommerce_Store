@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { registerUser } from "../services/authService";
+import toast from "react-hot-toast";
 
 
 function Register() {
@@ -16,7 +17,7 @@ function Register() {
         e.preventDefault();
 
         if (password !== confirmPassword) {
-            alert("Passwords do not match");
+            toast.error("Passwords do not match");
             return;
         }
 
@@ -27,13 +28,20 @@ function Register() {
                 password,
             });
 
-            alert("Registration Successful");
+            toast.success("OTP sent to your email.");
 
-            navigate("/login");
+            navigate(
+                "/verify-otp",
+                {
+                    state: {
+                        email,
+                    },
+                }
+            );
 
         } catch (error) {
 
-            alert(
+            toast.error(
                 error.response?.data?.message ||
                 "Registration Failed"
             );

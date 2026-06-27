@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 function LeaveFeedback() {
 
@@ -35,7 +36,7 @@ function LeaveFeedback() {
                 }
             );
 
-            alert("Feedback Submitted");
+            toast.success("Feedback Submitted");
 
             navigate("/my-orders");
 

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { createOrder } from "../services/orderService.js";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
 function Checkout({ cartItems, setCartItems }) {
 
@@ -17,11 +18,11 @@ function Checkout({ cartItems, setCartItems }) {
       !shippingInfo.state ||
       !shippingInfo.pincode
     ) {
-      return alert("Please fill all fields");
+      return toast.error("Please fill all fields");
     }
 
     if (!/^[0-9]{10}$/.test(shippingInfo.phone)) {
-      return alert("Enter valid phone number");
+      return toast.error("Enter valid phone number");
     }
 
     if (
@@ -29,11 +30,11 @@ function Checkout({ cartItems, setCartItems }) {
         shippingInfo.email
       )
     ) {
-      return alert("Enter valid email");
+      return toast.error("Enter valid email");
     }
 
     if (!/^[0-9]{6}$/.test(shippingInfo.pincode)) {
-      return alert("Enter valid pincode");
+      return toast.error("Enter valid pincode");
     }
 
     try {
@@ -69,7 +70,7 @@ function Checkout({ cartItems, setCartItems }) {
 
       console.log(error.response?.data);
 
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Order Failed"
       );

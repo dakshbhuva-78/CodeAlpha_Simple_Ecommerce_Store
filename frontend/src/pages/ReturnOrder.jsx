@@ -11,6 +11,7 @@ import {
     returnOrder
 }
     from "../services/orderService";
+import toast from "react-hot-toast";
 
 function ReturnOrder() {
 
@@ -36,7 +37,7 @@ function ReturnOrder() {
                     reason
                 );
 
-                alert(
+                toast.success(
                     "Return Request Submitted"
                 );
 

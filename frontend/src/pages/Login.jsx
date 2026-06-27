@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { loginUser } from "../services/authService";
-
+import toast from "react-hot-toast";
 
 function Login() {
 
@@ -30,7 +30,7 @@ function Login() {
         JSON.stringify(data)
       );
 
-      alert("Login Successful");
+      toast.success("Login Successful");
 
       if (data.role === "admin") {
 
@@ -44,7 +44,7 @@ function Login() {
 
     } catch (error) {
 
-      alert(
+      toast.error(
         error.response?.data?.message ||
         "Login Failed"
       );
@@ -108,12 +108,12 @@ function Login() {
 
             <div className="flex justify-end">
 
-              <a
-                href="#"
+              <Link
+                to="/forgot-password"
                 className="text-sm text-blue-600 hover:underline"
               >
                 Forgot Password?
-              </a>
+              </Link>
 
             </div>
 

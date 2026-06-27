@@ -9,7 +9,9 @@ import userRoutes from "./routes/userRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 
-dotenv.config();
+dotenv.config({
+    path: path.resolve(".env")
+});
 
 connectDB();
 
