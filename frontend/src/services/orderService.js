@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const API = "http://localhost:5000/api/orders";
+const API = `${import.meta.env.VITE_API_URL}/orders`;
+
 
 export const createOrder = async (orderData) => {
 
@@ -108,7 +109,7 @@ export const returnOrder = async (
 
     const { data } =
         await axios.put(
-            `http://localhost:5000/api/orders/${orderId}/return`,
+            `${API}/${orderId}/return`,
             {
                 reason,
             },

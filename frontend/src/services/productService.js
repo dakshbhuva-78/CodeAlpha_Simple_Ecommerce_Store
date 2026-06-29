@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API_URL =
-  "http://localhost:5000/api/products";
+`${import.meta.env.VITE_API_URL}/products`;
 
 export const getProducts = async () => {
 
@@ -27,7 +27,7 @@ export const getProductReviews =
 
         const { data } =
             await axios.get(
-                `http://localhost:5000/api/products/${id}/reviews`
+                `${API_URL}/${id}/reviews`
             );
 
         return data;
