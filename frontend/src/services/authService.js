@@ -1,7 +1,6 @@
 import axios from "axios";
 
-const API_URL = `${import.meta.env.VITE_API_URL}/users`;
-
+const API_URL = "http://localhost:5000/api/users";
 
 export const loginUser = async (userData) => {
   const response = await axios.post(
@@ -13,17 +12,12 @@ export const loginUser = async (userData) => {
 };
 
 export const registerUser = async (userData) => {
-
-  const { data } = await axios.post(
-
+  const response = await axios.post(
     `${API_URL}/register`,
-
     userData
-
   );
 
-  return data;
-
+  return response.data;
 };
 
 export const getUserProfile = async (token) => {
@@ -37,34 +31,4 @@ export const getUserProfile = async (token) => {
   );
 
   return response.data;
-};
-
-export const updateUserProfile = async (
-
-  userData,
-
-  token
-
-) => {
-
-  const { data } = await axios.put(
-
-    `${API_URL}/profile`,
-
-    userData,
-
-    {
-
-      headers: {
-
-        Authorization: `Bearer ${token}`
-
-      }
-
-    }
-
-  );
-
-  return data;
-
 };
