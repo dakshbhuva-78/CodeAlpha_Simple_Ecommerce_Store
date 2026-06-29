@@ -158,33 +158,12 @@ The application is fully responsive and optimized for:
 
 ---
 
-# 📸 Screenshots
-
-Add screenshots of the following pages:
-
-- Home
-- Products
-- Product Details
-- Cart
-- Checkout
-- Orders
-- Profile
-- Admin Dashboard
-- Admin Products
-- Admin Orders
-- Admin Feedback
-
----
-
 # 👨‍💻 Author
 
 **Daksh Bhuva**
 
 GitHub:
 https://github.com/dakshbhuva-78
-
-LinkedIn:
-(Add your LinkedIn profile link here)
 
 ---
 
