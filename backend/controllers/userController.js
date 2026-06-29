@@ -2,6 +2,7 @@ import sendEmail from "../utils/sendEmail.js";
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import generateToken from "../utils/generateToken.js";
+import Order from "../models/Order.js";
 
 export const registerUser = async (req, res) => {
 
@@ -529,12 +530,57 @@ export const loginUser = async (req, res) => {
 
 };
 
-export const getUserProfile = async (
-    req,
-    res
-) => {
+export const getUserProfile = async (req, res) => {
 
-    res.json(req.user);
+    try {
+
+        const user = await User.findById(req.user._id).select("-password");
+
+        if (!user) {
+
+            return res.status(404).json({
+
+                message: "User not found"
+
+            });
+
+        }
+
+        const orderCount = await Order.countDocuments({
+
+            user: req.user._id
+
+        });
+
+        const reviewCount = await Order.countDocuments({
+
+            user: req.user._id,
+
+            feedbackGiven: true
+
+        });
+
+        res.json({
+
+            ...user._doc,
+
+            orderCount,
+
+            reviewCount,
+
+        });
+
+    }
+
+    catch (error) {
+
+        res.status(500).json({
+
+            message: error.message
+
+        });
+
+    }
 
 };
 

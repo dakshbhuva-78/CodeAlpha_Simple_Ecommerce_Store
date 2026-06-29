@@ -4,6 +4,7 @@ import {
     getUserProfile,
     updateUserProfile
 } from "../services/authService";
+import Loader from "../components/Loader";
 
 function EditProfile() {
 
@@ -12,6 +13,7 @@ function EditProfile() {
     const [name, setName] = useState("");
 
     const [email, setEmail] = useState("");
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -22,6 +24,7 @@ function EditProfile() {
     const fetchProfile = async () => {
 
         try {
+            setLoading(true);
 
             const token = localStorage.getItem("token");
 
@@ -30,6 +33,7 @@ function EditProfile() {
             setName(data.name);
 
             setEmail(data.email);
+            setLoading(false);
 
         }
 
@@ -37,6 +41,8 @@ function EditProfile() {
 
             console.log(error);
 
+        } finally {
+            setLoading(false);
         }
 
     };
@@ -80,7 +86,10 @@ function EditProfile() {
         }
 
     };
-
+    
+    if (loading) {
+        return <Loader />;
+    }
     return (
 
         <section className="max-w-4xl mx-auto py-16 px-6">

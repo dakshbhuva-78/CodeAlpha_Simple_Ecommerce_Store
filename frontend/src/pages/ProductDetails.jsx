@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
 import { getProductById, getProducts, getProductReviews } from "../services/productService";
 import { useEffect, useState } from "react";
-
+import Loader from "../components/Loader";
 
 
 function ProductDetails({ cartItems, setCartItems }) {
@@ -12,6 +12,7 @@ function ProductDetails({ cartItems, setCartItems }) {
     const [product, setProduct] = useState(null);
     const [recommendedProducts, setRecommendedProducts] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -19,11 +20,12 @@ function ProductDetails({ cartItems, setCartItems }) {
 
             try {
 
+                setLoading(true);
                 const productData =
                     await getProductById(id);
 
                 setProduct(productData);
-
+                
                 const reviewData =
                     await getProductReviews(id);
 
@@ -40,11 +42,14 @@ function ProductDetails({ cartItems, setCartItems }) {
                 setRecommendedProducts(
                     filteredProducts.slice(0, 3)
                 );
+                setLoading(false);
 
             } catch (error) {
 
                 console.error(error);
 
+            } finally {
+                setLoading(false);
             }
 
         };
@@ -92,6 +97,9 @@ function ProductDetails({ cartItems, setCartItems }) {
         navigate("/cart");
     };
 
+    if(loading){
+        return <Loader />;
+    }
     return (
         <section className="max-w-7xl mx-auto py-20 px-6">
             {/* Product Section */}

@@ -27,6 +27,7 @@ import ResetPassword from "../pages/ResetPassword";
 import Profile from "../pages/Profile";
 import EditProfile from "../pages/EditProfile";
 import ProtectedRoute from "../components/ProtectedRoute";
+import NotFound from "../pages/NotFound";
 
 function AppRoutes({ cartItems, setCartItems }) {
   return (
@@ -196,7 +197,10 @@ function AppRoutes({ cartItems, setCartItems }) {
         element={<ResetPassword />}
       />
 
-
+      <Route
+        path="*"
+        element={<NotFound />}
+      />
     </Routes>
 
 

@@ -25,6 +25,7 @@ import {
 } from "react-icons/fa";
 
 import { Link } from "react-router-dom";
+import Loader from "../components/Loader";
 
 function AdminDashboard() {
 
@@ -33,12 +34,14 @@ function AdminDashboard() {
 
   const [orders, setOrders] = useState([]);
   const [feedbacks, setFeedbacks] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
 
     const fetchData = async () => {
 
       try {
+        setLoading(true);
 
         const statsData =
           await getDashboardStats();
@@ -54,11 +57,14 @@ function AdminDashboard() {
           await getAllFeedbacks();
 
         setFeedbacks(feedbackData);
+        setLoading(false);
 
       } catch (error) {
 
         console.log(error);
 
+      } finally {
+        setLoading(false);
       }
 
     };
@@ -67,21 +73,15 @@ function AdminDashboard() {
 
   }, []);
 
-  if (!stats) {
-
-    return (
-      <div className="text-center py-20">
-        Loading...
-      </div>
-    );
-
+  if (loading) {
+    return <Loader />;
   }
-
+  
   return (
     <AdminLayout>
 
       <section className="max-w-7xl mx-auto py-16 px-6">
-        <div className="flex justify-between items-center mb-10">
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-10">
 
           <div>
 

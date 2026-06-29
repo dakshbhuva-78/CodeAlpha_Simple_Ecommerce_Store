@@ -13,38 +13,38 @@ function Hero() {
       <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/70"></div>
 
       {/* Content */}
-      <div className="relative z-10 flex flex-col items-center justify-center h-full text-center px-6"
+      <div className="relative z-10 flex flex-col items-center justify-center h-screen text-center px-6"
         data-aos="fade-up"
         data-aos-duration="1200">
-        <p className="uppercase tracking-[8px] text-gray-300 mb-4">
+        <p className="uppercase tracking-[4px] sm:tracking-[8px] text-gray-300 mb-4">
           New Collection 2026
         </p>
-        <h1 className="text-7xl font-bold text-white mb-6 animate-pulse">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-bold text-white mb-6 animate-pulse">
           Think Different.
         </h1>
 
-        <p className="text-2xl text-gray-200 mb-10 max-w-2xl">
+        <p className="text-lg sm:text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl">
           Premium technology products for modern lifestyles.
         </p>
 
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row gap-4">
           <Link
             to="/products"
-            className="bg-white text-black px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
+            className="bg-white text-black px-6 sm:px-8 py-3 rounded-full font-semibold hover:bg-gray-200 transition"
             data-aos="zoom-out"
             data-aos-duration="1200"
           >
             Shop Now
           </Link>
 
-          <button className="border border-white text-white px-8 py-3 rounded-full hover:bg-white hover:text-black transition" data-aos="zoom-out" data-aos-duration="1200">
+          <button className="border border-white text-white px-6 sm:px-8 py-3 rounded-full hover:bg-white hover:text-black transition" data-aos="zoom-out" data-aos-duration="1200">
             Learn More
           </button>
 
         </div>
-        <div className="flex gap-10 mt-12 text-white">
+        <div className="grid grid-cols-3 gap-6 mt-12 text-white w-full max-w-md">
           <div>
-            <h3 className="text-3xl font-bold">50+</h3>
+            <h3 className="text-2xl sm:text-3xl font-bold">50+</h3>
             <p className="text-gray-300">Products</p>
           </div>
 

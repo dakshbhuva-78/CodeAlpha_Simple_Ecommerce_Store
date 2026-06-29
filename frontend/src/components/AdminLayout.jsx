@@ -1,5 +1,8 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState } from "react";
 import {
+    FaBars,
+    FaTimes,
     FaTachometerAlt,
     FaBox,
     FaShoppingBag,
@@ -12,6 +15,8 @@ function AdminLayout({ children }) {
     const location = useLocation();
     const navigate = useNavigate();
 
+    const [sidebarOpen, setSidebarOpen] = useState(false);
+
     const logoutHandler = () => {
         localStorage.removeItem("token");
         localStorage.removeItem("user");
@@ -20,11 +25,37 @@ function AdminLayout({ children }) {
     };
 
     return (
+
         <div className="min-h-screen flex bg-gray-100">
+            <div className="lg:hidden fixed top-0 left-0 right-0 bg-black text-white h-16 flex items-center justify-between px-5 z-50 shadow-lg">
+
+                <h2 className="text-2xl font-bold">
+                    AppleStore
+                </h2>
+
+                <button
+                    onClick={() => setSidebarOpen(true)}
+                >
+                    <FaBars className="text-2xl" />
+                </button>
+
+            </div>
             {/* Sidebar */}
 
-            <div className="fixed left-0 top-0 h-screen w-64 bg-black text-white p-6 shadow-2xl z-50">
+            <div className={`fixed top-0 left-0 h-screen w-64 bg-black text-white p-6 shadow-2xl z-50 transition-transform duration-300 ${sidebarOpen
+                ? "translate-x-0"
+                : "-translate-x-full"}
+                            lg:translate-x-0`}>
                 <div className="mb-10">
+                    <div className="flex justify-end lg:hidden">
+
+                        <button
+                            onClick={() => setSidebarOpen(false)}
+                        >
+                            <FaTimes className="text-2xl" />
+                        </button>
+
+                    </div>
                     <h1 className="text-4xl font-extrabold tracking-wide">
 
                         Apple<span className="text-blue-500">Store</span>
@@ -44,10 +75,11 @@ function AdminLayout({ children }) {
                     <div className="space-y-4">
 
                         <Link
+                            onClick={() => setSidebarOpen(false)}
                             to="/admin"
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${location.pathname === "/admin"
-                                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-                                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                                ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                                : "text-gray-300 hover:bg-gray-800 hover:text-white"
                                 }`}
                         >
                             <FaTachometerAlt />
@@ -55,10 +87,11 @@ function AdminLayout({ children }) {
                         </Link>
 
                         <Link
+                            onClick={() => setSidebarOpen(false)}
                             to="/admin/products"
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${location.pathname === "/admin/products"
-                                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-                                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                                ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                                : "text-gray-300 hover:bg-gray-800 hover:text-white"
                                 }`}
                         >
                             <FaBox />
@@ -66,10 +99,11 @@ function AdminLayout({ children }) {
                         </Link>
 
                         <Link
+                            onClick={() => setSidebarOpen(false)}
                             to="/admin/orders"
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${location.pathname === "/admin/orders"
-                                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-                                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                                ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                                : "text-gray-300 hover:bg-gray-800 hover:text-white"
                                 }`}
                         >
                             <FaShoppingBag />
@@ -77,10 +111,11 @@ function AdminLayout({ children }) {
                         </Link>
 
                         <Link
+                            onClick={() => setSidebarOpen(false)}
                             to="/admin/feedbacks"
                             className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 ${location.pathname === "/admin/feedbacks"
-                                    ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
-                                    : "text-gray-300 hover:bg-gray-800 hover:text-white"
+                                ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-lg"
+                                : "text-gray-300 hover:bg-gray-800 hover:text-white"
                                 }`}
                         >
                             <FaCommentDots />
@@ -128,7 +163,7 @@ function AdminLayout({ children }) {
 
             {/* Content */}
 
-            <div className="ml-64 flex-1 min-h-screen p-10 bg-gradient-to-br from-slate-100 via-blue-50 to-purple-100 overflow-y-auto">
+            <div className="md:ml-64 flex-1 min-h-screen p-4 md:p-10 bg-gradient-to-br from-slate-100 via-blue-50 to-purple-100 overflow-x-auto overflow-y-auto">
                 {children}
             </div>
 

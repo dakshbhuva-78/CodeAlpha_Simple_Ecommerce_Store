@@ -56,17 +56,14 @@ function Navbar({ cartItems }) {
 
   return (
     <nav className="bg-white/80 backdrop-blur-md border-b border-gray-200 sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
         <Link
           to="/"
-          className="text-2xl font-bold text-black"
-        >
+          className="text-xl sm:text-2xl font-bold text-black">
           AppleStore
         </Link>
 
-        <div className="flex gap-8 text-gray-700 font-semibold text-lg">
-
+        <div className="flex items-center gap-3 sm:gap-5 md:gap-8 text-gray-700 font-semibold text-sm sm:text-base md:text-lg flex-wrap justify-end">
           <Link to="/">
             Home
           </Link>
@@ -116,7 +113,7 @@ function Navbar({ cartItems }) {
 
               {showMenu && (
 
-                <div className="absolute right-0 mt-3 w-56 bg-white rounded-2xl shadow-2xl border overflow-hidden z-50">
+                <div className="absolute right-0 mt-3 w-64 max-w-[90vw] bg-white rounded-2xl shadow-2xl border overflow-hidden z-50">
 
                   <div className="px-5 py-4 border-b">
 

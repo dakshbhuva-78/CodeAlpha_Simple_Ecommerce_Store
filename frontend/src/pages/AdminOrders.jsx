@@ -4,10 +4,12 @@ import {
     updateOrderStatus
 } from "../services/adminOrderService";
 import AdminLayout from "../components/AdminLayout";
+import Loader from "../components/Loader";
 
 function AdminOrders() {
 
     const [orders, setOrders] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
@@ -18,6 +20,7 @@ function AdminOrders() {
     const fetchOrders = async () => {
 
         try {
+            setLoading(true);
 
             const token =
                 localStorage.getItem("token");
@@ -33,11 +36,14 @@ function AdminOrders() {
             );
 
             setOrders(data);
+            setLoading(false);
 
         } catch (error) {
 
             console.log(error);
 
+        } finally {
+            setLoading(false);
         }
 
     };
@@ -61,16 +67,19 @@ function AdminOrders() {
             }
 
         };
-
+        
+    if (loading) {
+        return <Loader />;
+    }
     return (
         <AdminLayout>
-            <section className="max-w-7xl mx-auto py-16 px-6">
+            <section className="max-w-7xl mx-auto py-8 md:py-16 px-4 md:px-6">
 
-                <div className="flex justify-between items-center mb-10">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-5 mb-10">
 
                     <div>
 
-                        <h1 className="text-5xl font-bold">
+                        <h1 className="text-3xl md:text-5xl font-bold">
                             Manage Orders
                         </h1>
 
@@ -80,7 +89,7 @@ function AdminOrders() {
 
                     </div>
 
-                    <div className="bg-white shadow rounded-2xl px-6 py-4">
+                    <div className="bg-white shadow rounded-2xl px-6 py-4 w-full md:w-auto">
 
                         <p className="text-sm text-gray-500">
                             Total Orders
@@ -94,9 +103,8 @@ function AdminOrders() {
 
                 </div>
 
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-
-                    <table className="w-full">
+                <div className="hidden md:block bg-white rounded-3xl shadow-xl overflow-x-auto">
+                    <table className="min-w-[1200px] w-full">
 
                         <thead className="bg-black text-white">
 
@@ -326,6 +334,180 @@ function AdminOrders() {
                         </tbody>
 
                     </table>
+
+                </div>
+
+                <div className="md:hidden space-y-5">
+
+                    {orders.map((order) => (
+
+                        <div
+                            key={order._id}
+                            className="bg-white rounded-3xl shadow-lg p-5"
+                        >
+
+                            <div className="flex justify-between items-start">
+
+                                <div>
+
+                                    <h3 className="font-bold text-lg">
+
+                                        {order.shippingInfo?.fullName}
+
+                                    </h3>
+
+                                    <p className="text-sm text-gray-500">
+
+                                        {order.shippingInfo?.email}
+
+                                    </p>
+
+                                </div>
+
+                                <span
+                                    className={`px-3 py-1 rounded-full text-xs font-semibold
+                    ${order.orderStatus === "Delivered"
+                                            ? "bg-green-100 text-green-700"
+                                            : order.orderStatus === "Cancelled"
+                                                ? "bg-red-100 text-red-700"
+                                                : order.orderStatus === "Returned"
+                                                    ? "bg-orange-100 text-orange-700"
+                                                    : order.orderStatus === "Confirmed"
+                                                        ? "bg-blue-100 text-blue-700"
+                                                        : "bg-yellow-100 text-yellow-700"
+                                        }`}
+                                >
+
+                                    {order.orderStatus}
+
+                                </span>
+
+                            </div>
+
+                            <hr className="my-4" />
+
+                            <div className="space-y-2 text-sm">
+
+                                <div className="flex justify-between">
+
+                                    <span className="text-gray-500">
+                                        Product
+                                    </span>
+
+                                    <span className="font-semibold">
+
+                                        {order.products[0]?.product?.name}
+
+                                    </span>
+
+                                </div>
+
+                                <div className="flex justify-between">
+
+                                    <span className="text-gray-500">
+                                        Total
+                                    </span>
+
+                                    <span className="font-bold">
+
+                                        ₹{order.totalPrice}
+
+                                    </span>
+
+                                </div>
+
+                                <div className="flex justify-between">
+
+                                    <span className="text-gray-500">
+                                        Payment
+                                    </span>
+
+                                    <span>
+
+                                        {order.paymentMethod}
+
+                                    </span>
+
+                                </div>
+
+                                <div className="flex justify-between">
+
+                                    <span className="text-gray-500">
+                                        Date
+                                    </span>
+
+                                    <span>
+
+                                        {new Date(
+                                            order.createdAt
+                                        ).toLocaleDateString()}
+
+                                    </span>
+
+                                </div>
+
+                                {order.returnReason && (
+
+                                    <div className="pt-2">
+
+                                        <p className="text-red-600 font-semibold">
+
+                                            Return Reason
+
+                                        </p>
+
+                                        <p className="text-sm">
+
+                                            {order.returnReason}
+
+                                        </p>
+
+                                    </div>
+
+                                )}
+
+                            </div>
+
+                            <div className="mt-5">
+
+                                {order.orderStatus === "Returned" ? (
+
+                                    <div className="text-center bg-red-100 text-red-600 py-3 rounded-xl font-semibold">
+
+                                        Returned
+
+                                    </div>
+
+                                ) : (
+
+                                    <select
+                                        value={order.orderStatus}
+                                        onChange={(e) =>
+                                            handleStatusChange(
+                                                order._id,
+                                                e.target.value
+                                            )
+                                        }
+                                        className="w-full border rounded-xl px-4 py-3"
+                                    >
+
+                                        <option>Order Placed</option>
+                                        <option>Confirmed</option>
+                                        <option>Packed</option>
+                                        <option>Shipped</option>
+                                        <option>Out For Delivery</option>
+                                        <option>Delivered</option>
+                                        <option>Cancelled</option>
+
+                                    </select>
+
+                                )}
+
+                            </div>
+
+                        </div>
+
+                    ))}
 
                 </div>
 

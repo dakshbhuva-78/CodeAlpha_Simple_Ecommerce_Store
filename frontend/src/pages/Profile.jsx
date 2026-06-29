@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getUserProfile } from "../services/authService";
+import Loader from "../components/Loader";
+
 
 function Profile() {
 
     const [user, setUser] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     const navigate = useNavigate();
 
@@ -17,12 +20,14 @@ function Profile() {
     const fetchProfile = async () => {
 
         try {
+            setLoading(true);
 
             const token = localStorage.getItem("token");
 
             const data = await getUserProfile(token);
 
             setUser(data);
+            setLoading(false);
 
         }
 
@@ -30,29 +35,24 @@ function Profile() {
 
             console.log(error);
 
+        } finally {
+            setLoading(false);
         }
 
     };
 
-    if (!user) {
-
-        return (
-            <div className="text-center py-20">
-                Loading...
-            </div>
-        );
-
+    if (loading) {
+        return <Loader />;
     }
-
     return (
 
-        <section className="max-w-5xl mx-auto py-16 px-6">
+        <section className="max-w-5xl mx-auto py-10 md:py-16 px-4 md:px-6">
 
-            <div className="bg-white rounded-3xl shadow-xl p-10">
+            <div className="bg-white rounded-3xl shadow-xl p-6 md:p-10">
 
-                <div className="flex items-center gap-8">
+                <div className="flex flex-col md:flex-row items-center md:items-start gap-8 text-center md:text-left">
 
-                    <div className="w-32 h-32 rounded-full bg-black text-white flex items-center justify-center text-5xl font-bold">
+                    <div className="w-24 h-24 md:w-32 md:h-32 rounded-full bg-black text-white flex items-center justify-center text-4xl md:text-5xl font-bold">
 
                         {user.name.charAt(0).toUpperCase()}
 
@@ -60,7 +60,7 @@ function Profile() {
 
                     <div>
 
-                        <h1 className="text-5xl font-bold">
+                        <h1 className="text-3xl md:text-5xl font-bold">
 
                             {user.name}
 
@@ -82,9 +82,9 @@ function Profile() {
 
                 </div>
 
-                <hr className="my-10"/>
+                <hr className="my-10" />
 
-                <div className="grid md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
 
                     <div className="bg-gray-100 rounded-2xl p-6 text-center">
 
@@ -94,10 +94,8 @@ function Profile() {
 
                         </h3>
 
-                        <p className="text-4xl font-bold mt-2">
-
-                            --
-
+                        <p className="text-3xl md:text-4xl font-bold mt-2">
+                            {user.orderCount}
                         </p>
 
                     </div>
@@ -105,15 +103,11 @@ function Profile() {
                     <div className="bg-gray-100 rounded-2xl p-6 text-center">
 
                         <h3 className="text-gray-500">
-
                             Reviews
-
                         </h3>
 
                         <p className="text-4xl font-bold mt-2">
-
-                            --
-
+                            {user.reviewCount}
                         </p>
 
                     </div>
@@ -136,14 +130,13 @@ function Profile() {
 
                 </div>
 
-                <div className="mt-10">
+                <div className="mt-10 flex justify-center md:justify-start">
 
                     <button
 
                         onClick={() => navigate("/edit-profile")}
 
-                        className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl"
-
+                        className="w-full sm:w-auto bg-gradient-to-r from-blue-600 to-purple-600 text-white px-8 py-3 rounded-xl"
                     >
 
                         Edit Profile

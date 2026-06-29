@@ -3,30 +3,36 @@ import { useEffect, useState, useRef } from "react";
 import { getOrderById } from "../services/orderService";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
+import Loader from "../components/Loader";
 
 function Invoice() {
 
-        const invoiceRef = useRef();
+    const invoiceRef = useRef();
 
     const { id } = useParams();
 
     const [order, setOrder] = useState(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
 
         const fetchOrder = async () => {
 
             try {
+                setLoading(true);
 
                 const data =
                     await getOrderById(id);
 
                 setOrder(data);
+                setLoading(false);
 
             } catch (error) {
 
                 console.log(error);
 
+            } finally {
+                setLoading(false);
             }
 
         };
@@ -116,7 +122,9 @@ function Invoice() {
         );
 
     };
-
+    if (loading) {
+        return <Loader />;
+    }
     return (
 
         <section

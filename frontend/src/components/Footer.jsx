@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 function Footer() {
   return (
     <footer className="bg-black text-white mt-20">
-      <div className="max-w-7xl mx-auto px-6 py-16">
-        <h2 className="text-3xl font-bold mb-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 py-16 text-center md:text-left">
+        <h2 className="text-2xl sm:text-3xl font-bold mb-4">
           AppleStore
         </h2>
 
@@ -12,7 +12,7 @@ function Footer() {
           Premium technology products for modern lifestyles.
         </p>
 
-        <div className="flex gap-6">
+        <div className="flex flex-wrap justify-center md:justify-start gap-6">
           <Link to="/">
             Home
           </Link>

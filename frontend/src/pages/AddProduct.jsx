@@ -66,11 +66,11 @@ function AddProduct() {
 
     return (
         <AdminLayout>
-            <section className="max-w-4xl mx-auto py-16 px-6">
+            <section className="max-w-4xl mx-auto py-8 md:py-16 px-4 md:px-6">
 
                 <div className="mb-10">
 
-                    <h1 className="text-5xl font-bold">
+                    <h1 className="text-3xl md:text-5xl font-bold">
                         Add New Product
                     </h1>
 
@@ -82,7 +82,7 @@ function AddProduct() {
 
                 <form
                     onSubmit={handleSubmit}
-                    className="bg-white rounded-3xl shadow-xl p-10 space-y-10"
+                    className="bg-white rounded-3xl shadow-xl p-5 md:p-10 space-y-8"
                 >
 
                     {/* Product Information */}

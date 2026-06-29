@@ -1,10 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { getProducts } from "../services/productService";
+import Loader from "../components/Loader";
 
 function Products() {
 
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const [search, setSearch] = useState("");
 
@@ -17,15 +19,16 @@ function Products() {
         const fetchProducts = async () => {
 
             try {
-
+                setLoading(true);
                 const data = await getProducts();
 
                 setProducts(data);
+                setLoading(false);
 
             } catch (error) {
-
                 console.log(error);
-
+            } finally {
+                setLoading(false);
             }
 
         };
@@ -99,6 +102,10 @@ function Products() {
         return filtered;
 
     }, [products, search, category, sort]);
+
+    if (loading) {
+        return <Loader />;
+    }
 
     return (
 
