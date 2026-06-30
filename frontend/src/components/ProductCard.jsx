@@ -1,4 +1,6 @@
 import { Link } from "react-router-dom";
+const API_URL = import.meta.env.VITE_API_URL;
+const IMAGE_URL = API_URL.replace("/api", "");
 
 function ProductCard({
   id,
@@ -21,7 +23,7 @@ function ProductCard({
         ❤️
       </button>
 
-      <img src={`http://localhost:5000${image}`} alt={name} className="w-full p-4 h-64 object-contain" />
+      <img src={`${IMAGE_URL}${image}`} alt={name} className="w-full p-4 h-64 object-contain" />
 
       <div className="p-6">
         <p className="text-yellow-500">⭐ {rating}</p>

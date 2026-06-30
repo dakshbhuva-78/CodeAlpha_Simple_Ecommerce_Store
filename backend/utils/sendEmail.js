@@ -1,33 +1,33 @@
 import nodemailer from "nodemailer";
 
 const sendEmail = async (to, subject, html) => {
+    try {
 
-    const transporter = nodemailer.createTransport({
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
 
-        service: "gmail",
+        const info = await transporter.sendMail({
+            from: `"AppleStore" <${process.env.EMAIL_USER}>`,
+            to,
+            subject,
+            html,
+        });
 
-        auth: {
+        console.log("EMAIL SENT");
+        console.log(info);
 
-            user: process.env.EMAIL_USER,
+    } catch (err) {
 
-            pass: process.env.EMAIL_PASS,
+        console.error("EMAIL ERROR");
+        console.error(err);
 
-        },
-
-    });
-
-    await transporter.sendMail({
-
-        from: `"AppleStore" <${process.env.EMAIL_USER}>`,
-
-        to,
-
-        subject,
-
-        html,
-
-    });
-
+        throw err;
+    }
 };
 
 export default sendEmail;

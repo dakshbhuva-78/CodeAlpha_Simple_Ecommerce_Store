@@ -20,6 +20,14 @@ const app = express();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+app.use(cors({
+    origin: [
+        "http://localhost:5173",
+        "https://code-alpha-simple-ecommerce-store-ashy.vercel.app"
+    ],
+    credentials: true
+}));
+
 app.use(
   "/assets",
   express.static(
