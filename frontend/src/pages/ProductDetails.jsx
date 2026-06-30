@@ -4,7 +4,8 @@ import ProductCard from "../components/ProductCard";
 import { getProductById, getProducts, getProductReviews } from "../services/productService";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
-
+const API_URL = import.meta.env.VITE_API_URL;
+const IMAGE_URL = API_URL.replace("/api", "");
 
 function ProductDetails({ cartItems, setCartItems }) {
     const { id } = useParams();
@@ -108,7 +109,7 @@ function ProductDetails({ cartItems, setCartItems }) {
                 {/* Product Image */}
 
                 <div className="bg-gray-100 rounded-3xl p-10 shadow-lg">
-                    <img src={`http://localhost:5000${product.image}`} alt={product.name} className="w-full" />
+                    <img src={`${IMAGE_URL}${product.image}`} alt={product.name} className="w-full" />
                 </div>
 
                 {/* Product Info */}

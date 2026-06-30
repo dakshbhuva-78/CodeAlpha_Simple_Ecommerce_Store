@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { getOrderById } from "../services/orderService";
+const API_URL = import.meta.env.VITE_API_URL;
+const IMAGE_URL = API_URL.replace("/api", "");
 
 function OrderDetails() {
 
@@ -100,7 +102,7 @@ function OrderDetails() {
                         <div className="flex gap-6">
 
                             <img
-                                src={`http://localhost:5000${order.products[0].product.image}`}
+                                src={`${IMAGE_URL}${order.products[0].product.image}`}
                                 alt={order.products[0].product.name}
                                 className="w-40 h-40 object-contain bg-gray-100 rounded-2xl p-4"
                             />

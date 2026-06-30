@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { getMyOrders, cancelOrder } from "../services/orderService.js";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
+const API_URL = import.meta.env.VITE_API_URL;
+const IMAGE_URL = API_URL.replace("/api", "");
 
 function MyOrders() {
   const [orders, setOrders] = useState([]);
@@ -117,7 +119,7 @@ function MyOrders() {
 
                 <div className="bg-gray-100 p-5 rounded-2xl">
                   <img
-                    src={`http://localhost:5000${order.products[0].product.image}`}
+                    src={`${IMAGE_URL}${order.products[0].product.image}`}
                     alt={order.products[0].product.name}
                     className="w-40 h-40 object-contain"
                   />

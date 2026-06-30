@@ -11,6 +11,8 @@ import { useNavigate } from "react-router-dom";
 import AdminLayout from "../components/AdminLayout";
 import toast from "react-hot-toast";
 import Loader from "../components/Loader";
+const API_URL = import.meta.env.VITE_API_URL;
+const IMAGE_URL = API_URL.replace("/api", "");
 
 function AdminProducts() {
 
@@ -149,7 +151,7 @@ function AdminProducts() {
                   <td className="p-4">
 
                     <img
-                      src={`http://localhost:5000${product.image}`}
+                      src={`${IMAGE_URL}${image}`}
                       alt={product.name}
                       className="w-18 h-18 rounded-xl object-cover bg-gray-50 p-2"
                     />
@@ -242,7 +244,7 @@ function AdminProducts() {
               <div className="flex gap-4">
 
                 <img
-                  src={`http://localhost:5000${product.image}`}
+                  src={`${IMAGE_URL}${product.image}`}
                   alt={product.name}
                   className="w-24 h-24 rounded-2xl object-cover bg-gray-100 p-2"
                 />

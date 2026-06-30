@@ -2,6 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { createOrder } from "../services/orderService.js";
 import { useState } from "react";
 import toast from "react-hot-toast";
+const API_URL = import.meta.env.VITE_API_URL;
+const IMAGE_URL = API_URL.replace("/api", "");
 
 function Checkout({ cartItems, setCartItems }) {
 
@@ -274,7 +276,7 @@ function Checkout({ cartItems, setCartItems }) {
                 <div className="bg-gray-100 rounded-xl p-2">
 
                   <img
-                    src={`http://localhost:5000${item.image}`}
+                    src={`${IMAGE_URL}${item.image}`}
                     alt={item.name}
                     className="w-16 h-16 object-contain"
                   />

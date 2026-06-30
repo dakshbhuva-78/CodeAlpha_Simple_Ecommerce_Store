@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-
+const API_URL = import.meta.env.VITE_API_URL;
+const IMAGE_URL = API_URL.replace("/api", "");
 
 function Cart({
     cartItems,
@@ -108,7 +109,7 @@ function Cart({
 
                                 <div className="bg-gray-100 rounded-2xl p-4">
                                     <img
-                                        src={`http://localhost:5000${item.image}`}
+                                        src={`${IMAGE_URL}${item.image}`}
                                         alt={item.name}
                                         className="w-32 h-32 object-contain"
                                     />
