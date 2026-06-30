@@ -172,7 +172,7 @@ Frontend:
 https://code-alpha-simple-ecommerce-store-ashy.vercel.app
 
 Backend:
-https://your-render-url.onrender.com
+https://applestore-backend-il0f.onrender.com/
 
 ---
 
