@@ -22,9 +22,11 @@ function Register() {
         }
 
         try {
-            await registerUser(
-                formData
-            );
+            await registerUser({
+                name,
+                email,
+                password,
+            });
             toast.success("Registration Successful");
 
             navigate("/login");

@@ -7,26 +7,14 @@ import Order from "../models/Order.js";
 export const registerUser = async (req, res) => {
 
     try {
-
         const { name, email, password } = req.body;
-        const passwordRegex =
-
-            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
-
+        const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
         if (
-
-            !passwordRegex.test(password)
-
+           !passwordRegex.test(password)
         ) {
-
             return res.status(400).json({
-
-                message:
-
-                    "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number."
-
+                message: "Password must contain at least 8 characters, one uppercase letter, one lowercase letter and one number."
             });
-
         }
 
         const userExists = await User.findOne({ email });
@@ -87,12 +75,10 @@ export const registerUser = async (req, res) => {
         }
 
         const salt = await bcrypt.genSalt(10);
-
         const hashedPassword =
             await bcrypt.hash(password, salt);
 
         // Generate 6-digit OTP
-
         const otp = Math.floor(
             100000 + Math.random() * 900000
         ).toString();
@@ -103,21 +89,13 @@ export const registerUser = async (req, res) => {
         // Create User
 
         await User.create({
-
             name,
-
             email,
-
             password: hashedPassword,
-
             role: "user",
-
             isVerified: true,
-
             otp: "",
-
             otpExpire: null,
-
         });
 
         // Send Email
@@ -161,9 +139,7 @@ export const registerUser = async (req, res) => {
         res.status(201).json({
             message: "Registration successful."
         });
-
     }
-
     catch (error) {
 
         console.error(error);
