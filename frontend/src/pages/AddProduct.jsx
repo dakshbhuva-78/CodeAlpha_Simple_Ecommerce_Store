@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import AdminLayout from "../components/AdminLayout";
 import toast from "react-hot-toast";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function AddProduct() {
 
@@ -46,7 +47,7 @@ function AddProduct() {
             };
 
             await axios.post(
-                "http://localhost:5000/api/products",
+                `${import.meta.env.VITE_API_URL}/api/products`,
                 productData
             );
 

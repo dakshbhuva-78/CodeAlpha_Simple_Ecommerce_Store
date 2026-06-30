@@ -5,6 +5,7 @@ import {
 } from "../services/adminOrderService";
 import AdminLayout from "../components/AdminLayout";
 import Loader from "../components/Loader";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function AdminOrders() {
 
@@ -26,7 +27,7 @@ function AdminOrders() {
                 localStorage.getItem("token");
 
             const { data } = await axios.get(
-                "http://localhost:5000/api/admin/orders",
+                `${import.meta.env.VITE_API_URL}/admin/orders`,
                 {
                     headers: {
                         Authorization:
