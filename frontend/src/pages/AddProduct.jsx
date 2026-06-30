@@ -47,7 +47,7 @@ function AddProduct() {
             };
 
             await axios.post(
-                `${import.meta.env.VITE_API_URL}/api/products`,
+                `${API_URL}/api/products`,
                 productData
             );
 

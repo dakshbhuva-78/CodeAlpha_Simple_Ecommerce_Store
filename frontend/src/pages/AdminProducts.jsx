@@ -151,7 +151,7 @@ function AdminProducts() {
                   <td className="p-4">
 
                     <img
-                      src={`${IMAGE_URL}${image}`}
+                      src={`${IMAGE_URL}${product.image}`}
                       alt={product.name}
                       className="w-18 h-18 rounded-xl object-cover bg-gray-50 p-2"
                     />
