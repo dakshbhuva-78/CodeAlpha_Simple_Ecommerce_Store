@@ -28,16 +28,12 @@ app.use(cors({
     credentials: true
 }));
 
-app.use(
-  "/assets",
-  express.static(
-    path.join(__dirname, "assets")
-  )
-);
-
-// Add these two lines
-app.use(cors());
 app.use(express.json());
+
+app.use(
+    "/assets",
+    express.static(path.join(__dirname, "assets"))
+);
 
 app.use("/api/products", productRoutes);
 app.use("/api/users", userRoutes);
@@ -45,11 +41,11 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes);
 
 app.get("/", (req, res) => {
-  res.send("Backend Running 🚀");
+    res.send("Backend Running 🚀");
 });
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Server Running On Port ${PORT}`);
+    console.log(`Server Running On Port ${PORT}`);
 });

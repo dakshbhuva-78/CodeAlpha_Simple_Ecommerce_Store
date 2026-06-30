@@ -22,22 +22,23 @@ function Register() {
         }
 
         try {
-            await registerUser({
-                name,
-                email,
-                password,
-            });
-
-            toast.success("OTP sent to your email.");
-
-            navigate(
-                "/verify-otp",
-                {
-                    state: {
-                        email,
-                    },
-                }
+            await registerUser(
+                formData
             );
+            toast.success("Registration Successful");
+
+            navigate("/login");
+
+            // toast.success("OTP sent to your email.");
+
+            // navigate(
+            //     "/verify-otp",
+            //     {
+            //         state: {
+            //             email,
+            //         },
+            //     }
+            // );
 
         } catch (error) {
 

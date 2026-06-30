@@ -80,11 +80,8 @@ export const registerUser = async (req, res) => {
             );
 
             return res.status(200).json({
-
                 message:
-
                     "OTP resent successfully"
-
             });
 
         }
@@ -115,49 +112,54 @@ export const registerUser = async (req, res) => {
 
             role: "user",
 
-            isVerified: false,
+            isVerified: true,
 
-            otp,
+            otp: "",
 
-            otpExpire,
+            otpExpire: null,
 
         });
 
         // Send Email
-        await sendEmail(
-            email,
-            "AppleStore Email Verification",
-            `
-    <div style="font-family:Arial;padding:20px">
-        <h2>AppleStore</h2>
+        //     await sendEmail(
+        //         email,
+        //         "AppleStore Email Verification",
+        //         `
+        // <div style="font-family:Arial;padding:20px">
+        //     <h2>AppleStore</h2>
 
-        <p>Welcome to AppleStore.</p>
+        //     <p>Welcome to AppleStore.</p>
 
-        <p>Your verification code is:</p>
+        //     <p>Your verification code is:</p>
 
-        <h1 style="letter-spacing:8px;color:#2563eb">
-            ${otp}
-        </h1>
+        //     <h1 style="letter-spacing:8px;color:#2563eb">
+        //         ${otp}
+        //     </h1>
 
-        <p>
-            This OTP is valid for
-            <b>10 minutes</b>.
-        </p>
+        //     <p>
+        //         This OTP is valid for
+        //         <b>10 minutes</b>.
+        //     </p>
 
-        <hr>
+        //     <hr>
 
-        <small>
-            Do not share this OTP with anyone.
-        </small>
-    </div>
-    `
-        );
+        //     <small>
+        //         Do not share this OTP with anyone.
+        //     </small>
+        // </div>
+        // `
+        //     );
+
+        //     res.status(201).json({
+
+        //         message:
+        //             "OTP sent successfully to your email."
+
+        //     });
+        // Email verification temporarily disabled
 
         res.status(201).json({
-
-            message:
-                "OTP sent successfully to your email."
-
+            message: "Registration successful."
         });
 
     }
@@ -491,15 +493,15 @@ export const loginUser = async (req, res) => {
             user.password
         );
 
-        if (!user.isVerified) {
+        // if (!user.isVerified) {
 
-            return res.status(401).json({
+        //     return res.status(401).json({
 
-                message: "Please verify your email first."
+        //         message: "Please verify your email first."
 
-            });
+        //     });
 
-        }
+        // }
 
         if (!isMatch) {
 
