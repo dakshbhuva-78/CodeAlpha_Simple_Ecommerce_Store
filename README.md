@@ -167,6 +167,15 @@ https://github.com/dakshbhuva-78
 
 ---
 
+## Live Demo
+Frontend:
+https://code-alpha-simple-ecommerce-store-ashy.vercel.app
+
+Backend:
+https://your-render-url.onrender.com
+
+---
+
 # ⭐ Internship Project
 
 Developed for the **CodeAlpha Full Stack Development Internship** using the MERN Stack.
